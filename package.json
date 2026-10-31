@@ -9,7 +9,9 @@
     "scan": "tsx src/cli.ts scan",
     "check": "tsx src/cli.ts check",
     "typecheck": "tsc --noEmit",
-    "verified": "tsx src/cli.ts verified"
+    "verified": "tsx src/cli.ts verified",
+    "enumerate": "tsx src/cli.ts enumerate",
+    "weigh": "tsx src/cli.ts weigh"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
