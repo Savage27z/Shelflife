@@ -8,7 +8,8 @@
   "scripts": {
     "scan": "tsx src/cli.ts scan",
     "check": "tsx src/cli.ts check",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verified": "tsx src/cli.ts verified"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

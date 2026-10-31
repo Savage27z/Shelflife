@@ -1,34 +1,40 @@
 {
-  "generatedAt": "2026-10-31T11:33:38.965Z",
+  "generatedAt": "2026-10-31T11:56:43.816Z",
   "summary": {
     "scanned": 45,
     "byStatus": {
       "no_account": 1,
       "no_contract": 2,
-      "no_metadata": 33,
+      "no_metadata": 34,
       "metadata": 8,
-      "error": 1
+      "error": 0
     },
-    "contractsWithCode": 41,
+    "contractsWithCode": 42,
     "withMetadata": 8,
     "withRepoLink": 7,
-    "coveragePct": 19.51219512195122
+    "coveragePct": 19.047619047619047
   },
+  "sourcescanTotalVerified": 105,
+  "verifiedInSample": [
+    "token.sweat",
+    "intents.near",
+    "v1.signer"
+  ],
   "records": [
     {
       "accountId": "wrap.near",
       "codeHash": "DL2f5xmZ44cQRP6vBMt94rvseH5d5KKnAGis2WkTAsh1",
-      "storageBytes": 167757418,
-      "balanceYocto": "34799578743793461732897515972137",
-      "checkedAt": "2026-10-31T11:30:25.593Z",
+      "storageBytes": 167758150,
+      "balanceYocto": "34798938864219648931236599282496",
+      "checkedAt": "2026-10-31T11:56:07.457Z",
       "status": "no_metadata"
     },
     {
       "accountId": "v2.ref-finance.near",
       "codeHash": "GZmkbfVLcN7ErxU9RDxP24YTaKmoVixhM6XyycP15Qvi",
-      "storageBytes": 110997324,
-      "balanceYocto": "32572302008644905081791482003",
-      "checkedAt": "2026-10-31T11:30:33.578Z",
+      "storageBytes": 110997643,
+      "balanceYocto": "32572360909399782912491482151",
+      "checkedAt": "2026-10-31T11:56:10.067Z",
       "status": "no_metadata"
     },
     {
@@ -36,44 +42,44 @@
       "codeHash": "HagtKcVnSk6eJrg9e4X4Rpvw4ACCrpJjkrdWavLNtggZ",
       "storageBytes": 26028127,
       "balanceYocto": "435042856747267504020639163",
-      "checkedAt": "2026-10-31T11:30:40.218Z",
+      "checkedAt": "2026-10-31T11:56:10.674Z",
       "status": "no_metadata"
     },
     {
       "accountId": "dclv2.ref-labs.near",
       "codeHash": "BzhtCCGJibs9ykCZUuMZ9Diq3gFAi4ZGeMHgEuVqvoiA",
-      "storageBytes": 27101678,
-      "balanceYocto": "9548176081847644559238760748",
-      "checkedAt": "2026-10-31T11:30:47.096Z",
+      "storageBytes": 27099545,
+      "balanceYocto": "9548290822639012331938760544",
+      "checkedAt": "2026-10-31T11:56:11.249Z",
       "status": "no_metadata"
     },
     {
       "accountId": "booster.ref-labs.near",
       "status": "no_account",
-      "checkedAt": "2026-10-31T11:31:13.407Z"
+      "checkedAt": "2026-10-31T11:56:11.842Z"
     },
     {
       "accountId": "social.near",
       "codeHash": "B5Yf5EquM36fGu3JNAD2K83fT6L4dpzcx8mYLnkjJJbS",
       "storageBytes": 410047958,
       "balanceYocto": "14805087905494941323994090962",
-      "checkedAt": "2026-10-31T11:31:17.217Z",
+      "checkedAt": "2026-10-31T11:56:12.224Z",
       "status": "no_metadata"
     },
     {
       "accountId": "aurora",
       "codeHash": "HrtBWvCMmVXRLG9vsYAFT7LfJ6mZtCSNTvYnXMF6fwzT",
-      "storageBytes": 14363110772,
-      "balanceYocto": "144263497073212989669025837649",
-      "checkedAt": "2026-10-31T11:32:01.592Z",
+      "storageBytes": 14363136167,
+      "balanceYocto": "144263506845636887040525837648",
+      "checkedAt": "2026-10-31T11:56:12.847Z",
       "status": "no_metadata"
     },
     {
       "accountId": "token.sweat",
       "codeHash": "9EUtV11wgCZ4N16xa24ETnn8E78GjeSit1r7gMyQZ6Zi",
-      "storageBytes": 3483281901,
-      "balanceYocto": "44247749971631761063568441164",
-      "checkedAt": "2026-10-31T11:32:02.375Z",
+      "storageBytes": 3483286311,
+      "balanceYocto": "44247863964748752998268442720",
+      "checkedAt": "2026-10-31T11:56:13.484Z",
       "status": "metadata",
       "metadata": {
         "version": "1.4.0",
@@ -103,16 +109,16 @@
       "accountId": "meta-pool.near",
       "codeHash": "J6pS9R23vzbwxGB8eMq4qrn8UhciEYHsVbR9UJPyLNxh",
       "storageBytes": 8745794,
-      "balanceYocto": "3732281382892526288123450468167",
-      "checkedAt": "2026-10-31T11:32:12.530Z",
+      "balanceYocto": "3732281382984584492041350468167",
+      "checkedAt": "2026-10-31T11:56:14.060Z",
       "status": "no_metadata"
     },
     {
       "accountId": "linear-protocol.near",
       "codeHash": "5LiDVDd1gh7ofVNbiA9VXrWwkv2m8tw46jZqYeuoC3SG",
       "storageBytes": 13344915,
-      "balanceYocto": "14835413361448395504762136463",
-      "checkedAt": "2026-10-31T11:32:22.311Z",
+      "balanceYocto": "14835413380388042726962136463",
+      "checkedAt": "2026-10-31T11:56:14.712Z",
       "status": "metadata",
       "metadata": {
         "version": "1.6.2",
@@ -124,7 +130,7 @@
       "codeHash": "BNZS2DfiJyWbNzVEkLMHLVeDs5e1275r9KSWDQ1UvEwi",
       "storageBytes": 793353,
       "balanceYocto": "20915864830818060775132758",
-      "checkedAt": "2026-10-31T11:32:22.920Z",
+      "checkedAt": "2026-10-31T11:56:15.360Z",
       "status": "metadata",
       "metadata": {
         "version": "1.1.0",
@@ -158,7 +164,7 @@
       "codeHash": "CRcNFqDvf1zwhZ9NXzgs5kNPZ1QFxz71TQrbdCVqP2ni",
       "storageBytes": 1452320,
       "balanceYocto": "15523875910675588400000006",
-      "checkedAt": "2026-10-31T11:32:23.532Z",
+      "checkedAt": "2026-10-31T11:56:16.016Z",
       "status": "metadata",
       "metadata": {
         "version": "0.1.0",
@@ -167,16 +173,18 @@
     },
     {
       "accountId": "priceoracle.near",
-      "status": "error",
-      "error": "TypeError: terminated",
-      "checkedAt": "2026-10-31T11:32:24.790Z"
+      "codeHash": "4sUttxKK4gJpWr1mhfNddBt497ZiXsRMbTYvCeQQbjR2",
+      "storageBytes": 230910,
+      "balanceYocto": "813096545057238413147601152",
+      "checkedAt": "2026-10-31T11:56:16.679Z",
+      "status": "no_metadata"
     },
     {
       "accountId": "intents.near",
       "codeHash": "BtA1BEFNS619KkvXFsgcpQ21Tb5yMm32aaUkn7xNothk",
-      "storageBytes": 13146064865,
-      "balanceYocto": "132012146727821617204059832575",
-      "checkedAt": "2026-10-31T11:32:37.458Z",
+      "storageBytes": 13146576204,
+      "balanceYocto": "132011258780841888163653010722",
+      "checkedAt": "2026-10-31T11:56:17.301Z",
       "status": "metadata",
       "metadata": {
         "version": "0.4.5",
@@ -216,8 +224,8 @@
       "accountId": "v1.signer",
       "codeHash": "DAE5ng4ZFR2ctMx9SizQBqmGkVbKUutgZ4ZECD4R8Sm9",
       "storageBytes": 1200669,
-      "balanceYocto": "3162755528454978803406251722",
-      "checkedAt": "2026-10-31T11:32:48.448Z",
+      "balanceYocto": "3162844079705064279606251941",
+      "checkedAt": "2026-10-31T11:56:17.924Z",
       "status": "metadata",
       "metadata": {
         "version": "3.17.0",
@@ -249,17 +257,17 @@
     {
       "accountId": "usdt.tether-token.near",
       "codeHash": "51tHbmQkA8qAi8c6MoUor5mCx6CnL6tZyC2sqQifKPZC",
-      "storageBytes": 248181979,
-      "balanceYocto": "4585676626013020766533730439",
-      "checkedAt": "2026-10-31T11:33:00.246Z",
+      "storageBytes": 248182479,
+      "balanceYocto": "4585682248007538303233730450",
+      "checkedAt": "2026-10-31T11:56:18.555Z",
       "status": "no_metadata"
     },
     {
       "accountId": "contract.main.burrow.near",
       "codeHash": "6Nek1MZ8cwJJ2xMQAUWup9V5AToYS9rkTxJfwo6BCpFa",
-      "storageBytes": 53551270,
-      "balanceYocto": "11003987794390704200558285026",
-      "checkedAt": "2026-10-31T11:33:08.541Z",
+      "storageBytes": 53552157,
+      "balanceYocto": "11004194259151814107858285026",
+      "checkedAt": "2026-10-31T11:56:19.211Z",
       "status": "no_metadata"
     },
     {
@@ -267,7 +275,7 @@
       "codeHash": "J34Q5DybRqaTbzSnCtEtm6oSP2cCvDvAHBA831TLUZ4E",
       "storageBytes": 74449,
       "balanceYocto": "1678632174189086258552822",
-      "checkedAt": "2026-10-31T11:33:17.978Z",
+      "checkedAt": "2026-10-31T11:56:19.900Z",
       "status": "no_metadata"
     },
     {
@@ -275,7 +283,7 @@
       "codeHash": "J34Q5DybRqaTbzSnCtEtm6oSP2cCvDvAHBA831TLUZ4E",
       "storageBytes": 74367,
       "balanceYocto": "1086550523393672328142703",
-      "checkedAt": "2026-10-31T11:33:18.769Z",
+      "checkedAt": "2026-10-31T11:56:20.527Z",
       "status": "no_metadata"
     },
     {
@@ -283,7 +291,7 @@
       "codeHash": "9A8586HCwaAUA4ZsCdGuEFkeJz73DWyLP4TzKKy7n6ti",
       "storageBytes": 2207556,
       "balanceYocto": "265848672881632025296468965",
-      "checkedAt": "2026-10-31T11:33:19.806Z",
+      "checkedAt": "2026-10-31T11:56:21.130Z",
       "status": "no_metadata"
     },
     {
@@ -291,7 +299,7 @@
       "codeHash": "5TQM4DuBtW4M6L3tWbeo88Pv7b5fe9oziMhMybcyLLMD",
       "storageBytes": 2269137,
       "balanceYocto": "23156748266304538999917071",
-      "checkedAt": "2026-10-31T11:33:20.452Z",
+      "checkedAt": "2026-10-31T11:56:21.824Z",
       "status": "no_metadata"
     },
     {
@@ -299,7 +307,7 @@
       "codeHash": "FGjoFvh3F4SAio6kynxeunjx7KTnrvDWtVCz46pwe9KF",
       "storageBytes": 466411,
       "balanceYocto": "14703872268578080665263129",
-      "checkedAt": "2026-10-31T11:33:21.070Z",
+      "checkedAt": "2026-10-31T11:56:22.521Z",
       "status": "no_metadata"
     },
     {
@@ -307,7 +315,7 @@
       "codeHash": "11111111111111111111111111111111",
       "storageBytes": 673,
       "balanceYocto": "11593015992195728774397572",
-      "checkedAt": "2026-10-31T11:33:21.693Z",
+      "checkedAt": "2026-10-31T11:56:23.126Z",
       "status": "no_contract"
     },
     {
@@ -315,7 +323,7 @@
       "codeHash": "djpJTx8aHWrQxU6jFrMKda8Z4dGpQvxAcyfNkoVUkST",
       "storageBytes": 1615878,
       "balanceYocto": "19650398275257152419555686",
-      "checkedAt": "2026-10-31T11:33:22.111Z",
+      "checkedAt": "2026-10-31T11:56:23.499Z",
       "status": "no_metadata"
     },
     {
@@ -323,7 +331,7 @@
       "codeHash": "CC9dZfmmnYtYCtPzwEdgBmT1wpWYTAL5nNvK4RHEUgAg",
       "storageBytes": 8201073,
       "balanceYocto": "2558244870480635786713266037",
-      "checkedAt": "2026-10-31T11:33:22.757Z",
+      "checkedAt": "2026-10-31T11:56:24.120Z",
       "status": "no_metadata"
     },
     {
@@ -331,7 +339,7 @@
       "codeHash": "34xWsAeyJxHrHg3UPd8Kg4Kq2sc48z1pioV1YZDkfiry",
       "storageBytes": 18757103,
       "balanceYocto": "3893240995591563958568759796",
-      "checkedAt": "2026-10-31T11:33:23.640Z",
+      "checkedAt": "2026-10-31T11:56:24.725Z",
       "status": "no_metadata"
     },
     {
@@ -339,7 +347,7 @@
       "codeHash": "EW9ru3nBhTzfHAbAfKfAKfm1KkZvyvZgT1nvXFh8yDAy",
       "storageBytes": 734363,
       "balanceYocto": "68244555309076880572668246",
-      "checkedAt": "2026-10-31T11:33:24.388Z",
+      "checkedAt": "2026-10-31T11:56:26.073Z",
       "status": "no_metadata"
     },
     {
@@ -347,7 +355,7 @@
       "codeHash": "C5YXdd31N6a2pCqAtY3dBarMuBaQsee4UER1AuGeryeo",
       "storageBytes": 2680168,
       "balanceYocto": "265280758038146915567900887",
-      "checkedAt": "2026-10-31T11:33:25.207Z",
+      "checkedAt": "2026-10-31T11:56:26.694Z",
       "status": "no_metadata"
     },
     {
@@ -355,7 +363,7 @@
       "codeHash": "C5YXdd31N6a2pCqAtY3dBarMuBaQsee4UER1AuGeryeo",
       "storageBytes": 894497,
       "balanceYocto": "92336745600388221860149185",
-      "checkedAt": "2026-10-31T11:33:25.927Z",
+      "checkedAt": "2026-10-31T11:56:27.308Z",
       "status": "no_metadata"
     },
     {
@@ -363,7 +371,7 @@
       "codeHash": "C5YXdd31N6a2pCqAtY3dBarMuBaQsee4UER1AuGeryeo",
       "storageBytes": 7335535,
       "balanceYocto": "605316700822809151767418077",
-      "checkedAt": "2026-10-31T11:33:26.753Z",
+      "checkedAt": "2026-10-31T11:56:27.882Z",
       "status": "no_metadata"
     },
     {
@@ -371,15 +379,15 @@
       "codeHash": "C5YXdd31N6a2pCqAtY3dBarMuBaQsee4UER1AuGeryeo",
       "storageBytes": 11827465,
       "balanceYocto": "881745855177264004312671219",
-      "checkedAt": "2026-10-31T11:33:27.467Z",
+      "checkedAt": "2026-10-31T11:56:28.467Z",
       "status": "no_metadata"
     },
     {
       "accountId": "aaaaaa20d9e0e2461697782ef11675f668207961.factory.bridge.near",
       "codeHash": "C5YXdd31N6a2pCqAtY3dBarMuBaQsee4UER1AuGeryeo",
       "storageBytes": 12611493,
-      "balanceYocto": "677047920439976418110971037",
-      "checkedAt": "2026-10-31T11:33:28.094Z",
+      "balanceYocto": "677047969769256799510971038",
+      "checkedAt": "2026-10-31T11:56:29.074Z",
       "status": "no_metadata"
     },
     {
@@ -387,7 +395,7 @@
       "codeHash": "GqJ8R7fWXGvPQYTUcVBNbbTiMs3fZTdZAJVbQGvJCq9N",
       "storageBytes": 5898731,
       "balanceYocto": "109199499808044628709715200",
-      "checkedAt": "2026-10-31T11:33:28.692Z",
+      "checkedAt": "2026-10-31T11:56:29.685Z",
       "status": "no_metadata"
     },
     {
@@ -395,7 +403,7 @@
       "codeHash": "4AVV1KUVgi17XoXkqxUPzyMhERXu15mGawriPQvWmBKD",
       "storageBytes": 36803289,
       "balanceYocto": "1679802911829066195694676246",
-      "checkedAt": "2026-10-31T11:33:29.426Z",
+      "checkedAt": "2026-10-31T11:56:30.276Z",
       "status": "no_metadata"
     },
     {
@@ -403,15 +411,15 @@
       "codeHash": "GYNhTvepHDdviQQNG1MoWTCi6nBhLuQknMDkZ7P8WwJj",
       "storageBytes": 48387224,
       "balanceYocto": "584563272480126986286227563",
-      "checkedAt": "2026-10-31T11:33:30.148Z",
+      "checkedAt": "2026-10-31T11:56:30.925Z",
       "status": "no_metadata"
     },
     {
       "accountId": "game.hot.tg",
       "codeHash": "GH7Zs8zab1YHiTkdveDj18Uu2je6fpiXcHmXkqYNCuew",
-      "storageBytes": 2302521009,
-      "balanceYocto": "23560075654879106797201641889",
-      "checkedAt": "2026-10-31T11:33:30.979Z",
+      "storageBytes": 2302521619,
+      "balanceYocto": "23560149077556671847001641917",
+      "checkedAt": "2026-10-31T11:56:31.559Z",
       "status": "metadata",
       "metadata": {
         "version": "1.2.0",
@@ -430,7 +438,7 @@
       "codeHash": "EG34dsZBtXfJJBeC5mXd1PAVA3gwbndAXk8RKwAjcW7G",
       "storageBytes": 20931741,
       "balanceYocto": "26403690453746665052070552119",
-      "checkedAt": "2026-10-31T11:33:31.581Z",
+      "checkedAt": "2026-10-31T11:56:32.209Z",
       "status": "no_metadata"
     },
     {
@@ -438,7 +446,7 @@
       "codeHash": "CY8oKGj4C3U2nmKBNUPzBZgyfGibnJVr1cvWJXt3YZqR",
       "storageBytes": 56321083,
       "balanceYocto": "568850056126100742599999994",
-      "checkedAt": "2026-10-31T11:33:32.395Z",
+      "checkedAt": "2026-10-31T11:56:33.254Z",
       "status": "metadata",
       "metadata": {
         "version": "2.0.2",
@@ -449,8 +457,8 @@
       "accountId": "astro-stakers.poolv1.near",
       "codeHash": "J1arLz48fgXcGyCPVckFwLnewNH6j1uw79thsvwqGYTY",
       "storageBytes": 10151687,
-      "balanceYocto": "1043576280531392247549918340992",
-      "checkedAt": "2026-10-31T11:33:33.330Z",
+      "balanceYocto": "1043576280615328476718818340993",
+      "checkedAt": "2026-10-31T11:56:33.892Z",
       "status": "no_metadata"
     },
     {
@@ -458,7 +466,7 @@
       "codeHash": "J1arLz48fgXcGyCPVckFwLnewNH6j1uw79thsvwqGYTY",
       "storageBytes": 2589396,
       "balanceYocto": "306441186820695440580005945045",
-      "checkedAt": "2026-10-31T11:33:34.141Z",
+      "checkedAt": "2026-10-31T11:56:34.703Z",
       "status": "no_metadata"
     },
     {
@@ -466,7 +474,7 @@
       "codeHash": "11111111111111111111111111111111",
       "storageBytes": 346,
       "balanceYocto": "97589000544339700000000",
-      "checkedAt": "2026-10-31T11:33:35.062Z",
+      "checkedAt": "2026-10-31T11:56:35.339Z",
       "status": "no_contract"
     },
     {
@@ -474,7 +482,7 @@
       "codeHash": "8CozzJCCeyDZWT1NN4Fn1MLLQpCJVV2U1s22rAb1HBwS",
       "storageBytes": 596538,
       "balanceYocto": "10265358236964408700000000",
-      "checkedAt": "2026-10-31T11:33:35.603Z",
+      "checkedAt": "2026-10-31T11:56:35.742Z",
       "status": "no_metadata"
     },
     {
@@ -482,7 +490,7 @@
       "codeHash": "CM9h7HCaV39vhG7upGtU9Qp3Dohw3TpE7TYuBtgt1GVg",
       "storageBytes": 4966662,
       "balanceYocto": "50181560876243246200000150",
-      "checkedAt": "2026-10-31T11:33:36.507Z",
+      "checkedAt": "2026-10-31T11:56:36.454Z",
       "status": "no_metadata"
     },
     {
@@ -490,7 +498,7 @@
       "codeHash": "2RdhZqpVaNC4SRFi6GVbDHDDbYj8kyEUxHtXQaGRQXmF",
       "storageBytes": 667273,
       "balanceYocto": "60488015314717287792147513",
-      "checkedAt": "2026-10-31T11:33:37.428Z",
+      "checkedAt": "2026-10-31T11:56:37.105Z",
       "status": "no_metadata"
     },
     {
@@ -498,7 +506,7 @@
       "codeHash": "5vf2Jkqpk11H7szLnY4XdPA6maJi1ND8xe346xtbtX8e",
       "storageBytes": 2524077,
       "balanceYocto": "71075661278372659663402549081",
-      "checkedAt": "2026-10-31T11:33:38.250Z",
+      "checkedAt": "2026-10-31T11:56:37.745Z",
       "status": "no_metadata"
     }
   ]
