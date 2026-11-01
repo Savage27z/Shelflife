@@ -208,6 +208,7 @@ Then verify and publish on NearBlocks, under the contract's Contract tab.
       actually produce the deployed bytes?
 - [ ] Weight findings by value and transaction volume
 - [x] `sourcecheck <account.near>` — single-contract checker with CI exit codes
+- [x] Static report page (`npm run report` → `report/index.html`)
 
 ## Dependencies and prior code
 

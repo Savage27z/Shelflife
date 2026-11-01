@@ -4,6 +4,7 @@ import { fetchAllVerified, getVerified, isCurrent, type VerifiedRecord } from ".
 import { viewAccount } from "./rpc.js";
 import { countTokens, dedupe, listTokens, type TokenContract } from "./enumerate.js";
 import { formatBytes, formatNear, weigh } from "./weight.js";
+import { buildReport } from "./report.js";
 
 const DATA_DIR = new URL("../data/", import.meta.url);
 
@@ -277,6 +278,7 @@ const [command, arg] = process.argv.slice(2);
 if (command === "scan") await runScan();
 else if (command === "verified") await runVerified();
 else if (command === "weigh") await runWeigh();
+else if (command === "report") console.log("wrote", await buildReport());
 else if (command === "enumerate") await runEnumerate(Number(arg) || 400);
 else if (command === "check" && arg) await runCheck(arg);
 else {

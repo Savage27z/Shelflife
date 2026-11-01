@@ -13,7 +13,8 @@
     "enumerate": "tsx src/cli.ts enumerate",
     "weigh": "tsx src/cli.ts weigh",
     "build": "tsc -p tsconfig.build.json",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "report": "tsx src/cli.ts report"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

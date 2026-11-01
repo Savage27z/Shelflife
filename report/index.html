@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sourcecheck — NEAR contract source verification</title>
+<style>
+  :root {
+    --bg: #fbfbfa; --fg: #1a1a18; --muted: #6b6b66; --line: #e3e3df;
+    --card: #ffffff; --accent: #0b6e4f; --warn: #a6630b; --bad: #a32a2a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141414; --fg: #ededea; --muted: #9a9a94; --line: #2b2b2b;
+      --card: #1c1c1c; --accent: #4ec38a; --warn: #e0a33a; --bad: #e46a6a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 16px; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 820px; margin: 0 auto; padding: 56px 0 96px; }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.02em; }
+  h2 { font-size: 1.25rem; margin: 48px 0 12px; letter-spacing: -0.01em; }
+  h3 { font-size: 1rem; margin: 28px 0 8px; color: var(--muted); font-weight: 600; }
+  p { margin: 0 0 14px; }
+  .lede { color: var(--muted); font-size: 1.05rem; }
+  .meta { color: var(--muted); font-size: 0.85rem; }
+  .big { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 20px 0; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .card .label { color: var(--muted); font-size: 0.82rem; margin-top: 6px; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88em; }
+  .note { border-left: 3px solid var(--warn); padding: 10px 14px; margin: 18px 0;
+          background: var(--card); border-radius: 0 8px 8px 0; font-size: 0.93rem; }
+  .accent { color: var(--accent); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+  @media (max-width: 560px) { .big { font-size: 2rem; } main { padding-top: 32px; } }
+</style>
+<main>
+
+<h1>How many NEAR contracts actually match their published source?</h1>
+<p class="lede">A blockchain runs machine code. Projects publish readable source and say
+&ldquo;this is what it does.&rdquo; Almost nobody checks whether the two match. This measures it.</p>
+
+<h2>1. Across all of NEAR mainnet, 105 contracts have ever been verified</h2>
+<p>Read directly from SourceScan&rsquo;s on-chain registry
+(<code>v2-verifier.sourcescan.near</code>), which backs the Verify-and-Publish button on
+NearBlocks. This figure is <strong>complete, not sampled</strong>.</p>
+<div class="cards">
+  <div class="card"><div class="big">105</div><div class="label">contracts ever verified</div></div>
+  <div class="card"><div class="big accent">54</div><div class="label">records matching code deployed today</div></div>
+  <div class="card"><div class="big warn">42</div><div class="label">redeployed since verification</div></div>
+</div>
+
+<h2>2. Two in five verifications are already out of date</h2>
+<p>A verification record pins a specific code hash. When the account redeploys, the record
+stops describing the running code &mdash; but nothing re-checks it, and explorers still show
+the contract as verified. <strong>40.0% of all verified contracts have redeployed
+since.</strong></p>
+<h3>Verified, then redeployed (first 25 of 42)</h3>
+<table><thead><tr><th>Account</th><th style="text-align:right">Verified at block</th></tr></thead>
+<tbody>
+<tr><td><code>devhub.near</code></td><td class="num">130548343</td></tr>
+<tr><td><code>shit.0xshitzu.near</code></td><td class="num">133270893</td></tr>
+<tr><td><code>dev-unaudited-v1.oracle.intear.near</code></td><td class="num">135805798</td></tr>
+<tr><td><code>omni.bridge.near</code></td><td class="num">220505232</td></tr>
+<tr><td><code>rug-testing.near</code></td><td class="num">141625520</td></tr>
+<tr><td><code>hello.sleet.near</code></td><td class="num">142527770</td></tr>
+<tr><td><code>steak-finance.near</code></td><td class="num">144727425</td></tr>
+<tr><td><code>lst100.ref-dev-team.near</code></td><td class="num">159749693</td></tr>
+<tr><td><code>lst.rhealab.near</code></td><td class="num">159861662</td></tr>
+<tr><td><code>zcash-client.bridge.near</code></td><td class="num">207096544</td></tr>
+<tr><td><code>vault2.ft-lockup.near</code></td><td class="num">164270575</td></tr>
+<tr><td><code>aa-dew.near</code></td><td class="num">164422505</td></tr>
+<tr><td><code>0xe9b749e48da92db916b058f05fc953ce0a2ee363-eth.aa-dew.near</code></td><td class="num">164440491</td></tr>
+<tr><td><code>slimedrop.intear.near</code></td><td class="num">165781387</td></tr>
+<tr><td><code>subdued-snow-round-cliff.ft-lockup.near</code></td><td class="num">165406170</td></tr>
+<tr><td><code>treasury-testing-round1-postcliff.ft-lockup.near</code></td><td class="num">165686700</td></tr>
+<tr><td><code>first.slimytest.near</code></td><td class="num">167252396</td></tr>
+<tr><td><code>venear.dao</code></td><td class="num">202357120</td></tr>
+<tr><td><code>vote.dao</code></td><td class="num">202357066</td></tr>
+<tr><td><code>btc-connector.bridge.near</code></td><td class="num">197307215</td></tr>
+<tr><td><code>93b787ac14f6.user0.tmplr.near</code></td><td class="num">168380693</td></tr>
+<tr><td><code>staging-intents.near</code></td><td class="num">170178837</td></tr>
+<tr><td><code>intents.near</code></td><td class="num">218546981</td></tr>
+<tr><td><code>v1.tmplr.near</code></td><td class="num">170653647</td></tr>
+<tr><td><code>zcash-connector.bridge.near</code></td><td class="num">217103485</td></tr>
+</tbody></table>
+
+<h2>3. Only one contract in five publishes a source link you can follow</h2>
+<p>180 contracts taken from NearBlocks in indexer order &mdash; token contracts are
+the one population on NEAR that can be enumerated rather than hand-picked.</p>
+<table><thead><tr><th>Measure</th><th style="text-align:right">Count</th><th style="text-align:right">Share</th></tr></thead>
+<tbody>
+<tr><td>Contracts inspected</td><td class="num">168</td><td class="num">&mdash;</td></tr>
+<tr><td>Expose NEP-330 metadata</td><td class="num">53</td><td class="num">31.5%</td></tr>
+<tr><td><strong>Carrying a usable repo link</strong></td><td class="num"><strong>34</strong></td><td class="num"><strong>20.2%</strong></td></tr>
+<tr><td>Metadata pointing nowhere</td><td class="num">19</td><td class="num">&mdash;</td></tr>
+<tr><td>In the SourceScan registry</td><td class="num">6</td><td class="num">&mdash;</td></tr>
+</tbody></table>
+<div class="note"><strong>Metadata presence overstates verifiability.</strong>
+19 of the 53 contracts exposing metadata publish no
+link in it &mdash; a version string pointing nowhere. The honest figure is the one counting a
+usable link: <strong>20.2%</strong>.</div>
+<div class="note"><strong>Accounts are not programs.</strong> Those 168 accounts
+run only <strong>101 distinct pieces of bytecode</strong> &mdash; roughly a
+third are factory clones, so one factory&rsquo;s choice can swing the aggregate. Counting distinct
+programs instead: of 87 unique-bytecode contracts,
+<strong>41.4%</strong> expose metadata.</div>
+
+<h2>4. Exposure is real, but concentrated</h2>
+<p>Of the NEAR held by inspected contracts, <strong>99.8%</strong>
+sits behind contracts with no published source. That is true and, quoted alone, misleading &mdash;
+it is dominated by a handful of accounts.</p>
+<table><thead><tr><th>Account</th><th style="text-align:right">NEAR held</th><th style="text-align:right">Share of sample</th><th style="text-align:right">State</th></tr></thead>
+<tbody>
+<tr><td><code>wrap.near</code></td><td class="num">34,793,990.39</td><td class="num">90.1%</td><td class="num">160.0 MB</td></tr>
+<tr><td><code>meta-pool.near</code></td><td class="num">3,732,281.38</td><td class="num">9.7%</td><td class="num">8.3 MB</td></tr>
+<tr><td><code>17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1</code></td><td class="num">7,287.62</td><td class="num">0.0%</td><td class="num">62.8 MB</td></tr>
+<tr><td><code>alpha-x.raddx.near</code></td><td class="num">5,050.29</td><td class="num">0.0%</td><td class="num">415.0 KB</td></tr>
+<tr><td><code>mint.sharddog.near</code></td><td class="num">2,209.02</td><td class="num">0.0%</td><td class="num">205.8 MB</td></tr>
+</tbody></table>
+<div class="note">Wrapped NEAR holds the backing for every wNEAR in existence, so one account
+dominates the total. <strong>Quote the headline with this table, never without it.</strong></div>
+
+<h2>What this does and does not claim</h2>
+<p><strong>Verification coverage, not honesty.</strong> A contract publishing no source is
+unverifiable &mdash; that is not evidence anyone is lying, and no project here is accused of
+anything. The fix is two commands.</p>
+<p><strong>Nothing has been rebuilt.</strong> Every figure measures whether a source link is
+<em>published</em>, not whether that source compiles to the deployed bytes. Read
+&ldquo;verifiable&rdquo; as &ldquo;a link exists to check&rdquo;, never as &ldquo;checked&rdquo;.</p>
+<p><strong>Findings 1 and 2 are complete</strong>, enumerating the whole registry. Findings 3 and 4
+are a sample of token contracts, and token contracts may not behave like the rest of the chain.</p>
+<p class="meta">Scan 2026-10-31T12:57:58.613Z &middot; registry 2026-10-31T11:55:45.371Z</p>
+
+<footer>
+  <p>Generated 2026-11-01T13:32:45.115Z from the datasets committed in <code>data/</code>.
+  Every figure is computed from those files, not written by hand — re-run
+  <code>npm run scan</code>, <code>npm run verified</code> and <code>npm run report</code>
+  to reproduce this page.</p>
+</footer>
+</main>
+</html>
