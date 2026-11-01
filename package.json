@@ -1,5 +1,5 @@
 {
-  "name": "sourcecheck",
+  "name": "shelflife",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -23,7 +23,7 @@
     "typescript": "^5.7.2"
   },
   "bin": {
-    "sourcecheck": "dist/bin.js"
+    "shelflife": "dist/bin.js"
   },
   "files": [
     "dist",

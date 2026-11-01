@@ -48,7 +48,7 @@ export async function rpc<T>(method: string, params: unknown, attempt = 0): Prom
     res = await fetch(url, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ jsonrpc: "2.0", id: "sourcecheck", method, params }),
+      body: JSON.stringify({ jsonrpc: "2.0", id: "shelflife", method, params }),
       signal: AbortSignal.timeout(20_000),
     });
   } catch (cause) {

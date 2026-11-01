@@ -1,4 +1,4 @@
-# Sourcecheck
+# Shelflife
 
 **How many NEAR contracts actually match their published source?**
 
@@ -233,7 +233,7 @@ src/verified.ts    SourceScan registry: enumeration, lookup, staleness
 src/enumerate.ts   indexer-derived target set, rate-limit tolerant
 src/weight.ts      exposure by balance and state, with concentration disclosure
 src/report.ts      static HTML report generated from the datasets
-src/bin.ts         the sourcecheck checker
+src/bin.ts         the shelflife checker
 src/cli.ts         command dispatch
 test/              unit tests, no network
 data/              committed datasets — every finding reproduces from these
@@ -257,7 +257,7 @@ Then verify and publish on NearBlocks, under the contract's Contract tab.
 - [x] SourceScan registry lookup, with staleness check
 - [x] Indexer-derived target set
 - [x] Weight findings by value and state, with concentration disclosure
-- [x] `sourcecheck <account.near>` — single-contract checker with CI exit codes
+- [x] `shelflife <account.near>` — single-contract checker with CI exit codes
 - [x] Static report page (`npm run report` → `report/index.html`)
 - [ ] Reproducible rebuild via Docker + `cargo near`, hash comparison — does the published source
       actually produce the deployed bytes?

@@ -43,7 +43,7 @@ function page(body: string, generatedAt: string): string {
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sourcecheck — NEAR contract source verification</title>
+<title>Shelflife — NEAR contract source verification</title>
 <style>
   :root {
     --bg: #fbfbfa; --fg: #1a1a18; --muted: #6b6b66; --line: #e3e3df;

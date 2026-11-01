@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * sourcecheck — can anyone read the source of this NEAR contract?
+ * shelflife — can anyone read the source of this NEAR contract?
  *
- *   npx sourcecheck wrap.near
+ *   npx shelflife wrap.near
  *
  * Exits non-zero when no source is published, so it can gate a CI pipeline:
  * a team can fail their own build if a dependency they rely on goes dark.
@@ -29,9 +29,9 @@ const tty = process.stdout.isTTY === true && !process.env["NO_COLOR"];
 const paint = (code: string, s: string) => (tty ? `${code}${s}${RESET}` : s);
 
 function usage(): number {
-  console.log(`sourcecheck — can anyone read the source of this NEAR contract?
+  console.log(`shelflife — can anyone read the source of this NEAR contract?
 
-  npx sourcecheck <account.near>
+  node dist/bin.js <account.near>
 
 Exit codes:
   0  a source link is published

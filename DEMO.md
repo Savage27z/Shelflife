@@ -113,7 +113,7 @@ the video.
 > 54. That's how many contracts on the whole chain have a verification record matching what's
 > running today.
 >
-> I built Sourcecheck at NEAR HACKATHON to measure it. It reads the on-chain registry directly and
+> I built Shelflife at NEAR HACKATHON to measure it. It reads the on-chain registry directly and
 > checks every contract's published source metadata — all free public RPC reads, no API keys. The
 > datasets are committed, so you can re-run it and get the same numbers.
 >
