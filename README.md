@@ -147,6 +147,7 @@ node dist/bin.js game.hot.tg            # metadata that points nowhere
 
 | Command | What it does | Runtime |
 |---|---|---|
+| `npm test` | the test suite, no network | ~2s |
 | `node dist/bin.js <account>` | check one contract | ~3s |
 | `npm run verified` | audit the whole SourceScan registry → findings 1 and 2 | ~2 min |
 | `npm run weigh` | exposure and concentration from the last scan → finding 4 | instant |
@@ -171,6 +172,32 @@ committed**, so `weigh` and `report` reproduce findings 3 and 4 immediately with
 # fail your own build if a dependency stops publishing source
 node dist/bin.js some-dependency.near || echo "dependency publishes no source"
 ```
+
+## Tests
+
+```bash
+npm test
+```
+
+19 tests, no network, no new dependencies — Node's built-in runner. They cover the arithmetic that
+produces every published figure: coverage denominators, link-versus-metadata counting, bytecode
+deduplication, BigInt balance sums, divide-by-zero guards, and the error classification that
+decides whether a response is a *finding* or a *failure*.
+
+The fixtures are real response shapes copied from live NEAR calls, including the one that caused
+the 100%-coverage bug below.
+
+**The suite was mutation-tested**, because tests that pass prove nothing on their own. Three
+deliberate breaks were introduced and all three were caught:
+
+| Mutation | Result |
+|---|---|
+| `isMissingMethod` always returns false — the original 100%-coverage bug | 1 failure |
+| Errors folded into the coverage denominator | 2 failures |
+| Concentration sorted ascending, hiding the dominant account | 1 failure |
+
+That last one matters as much as the arithmetic: if `wrap.near` could quietly drop off the bottom
+of the concentration table, the headline figure would become misleading without anyone noticing.
 
 ## How it works
 
@@ -208,6 +235,7 @@ src/weight.ts      exposure by balance and state, with concentration disclosure
 src/report.ts      static HTML report generated from the datasets
 src/bin.ts         the sourcecheck checker
 src/cli.ts         command dispatch
+test/              unit tests, no network
 data/              committed datasets — every finding reproduces from these
 report/index.html  generated report
 ```

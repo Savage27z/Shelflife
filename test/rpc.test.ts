@@ -1,0 +1,67 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { RpcError, isMissingAccount, isMissingMethod, EMPTY_CODE_HASH } from "../src/rpc.js";
+
+/**
+ * These guard the bug that made the very first run of this tool report 100%
+ * verification coverage: a contract lacking the metadata method was being classified
+ * as an infrastructure error and dropped from the denominator.
+ *
+ * The fixtures below are the real shapes NEAR returns, copied from live responses.
+ */
+
+test("a missing method is recognised from the real NEAR response shape", () => {
+  // NEAR returns HTTP 200 with the failure as a string inside result.error.
+  const raw = {
+    block_hash: "BBmAoVaXzKHTaaNmNFR5w5ghUCrKmuA3DG4jXzMYMKzD",
+    block_height: 222414439,
+    error: "wasm execution failed with error: MethodResolveError(MethodNotFound)",
+    logs: [],
+  };
+  const err = new RpcError(raw.error, "CONTRACT_EXECUTION_ERROR", raw);
+
+  assert.equal(isMissingMethod(err), true, "this is a finding, not a failure");
+  assert.equal(isMissingAccount(err), false);
+});
+
+test("a missing account is recognised", () => {
+  const err = new RpcError(
+    "account nonexistent.near does not exist while viewing",
+    "UNKNOWN_ACCOUNT",
+    { cause: { name: "UNKNOWN_ACCOUNT" } },
+  );
+
+  assert.equal(isMissingAccount(err), true);
+  assert.equal(isMissingMethod(err), false);
+});
+
+test("a genuine transport failure is classified as neither", () => {
+  // Must stay an error: silently bucketing it would invent a finding from a timeout.
+  const err = new RpcError("transport failure after retries: TypeError: terminated", undefined, null);
+
+  assert.equal(isMissingAccount(err), false);
+  assert.equal(isMissingMethod(err), false);
+});
+
+test("non-RpcError values are never classified as findings", () => {
+  for (const value of [new Error("boom"), "boom", null, undefined, 42]) {
+    assert.equal(isMissingAccount(value), false);
+    assert.equal(isMissingMethod(value), false);
+  }
+});
+
+test("a panic inside the contract is not a missing method", () => {
+  // Observed on the verifier when called with the wrong argument shape. The method
+  // exists; treating this as "no metadata" would understate coverage.
+  const raw = {
+    error: 'wasm execution failed with error: HostError(GuestPanic { panic_msg: "Failed to deserialize" })',
+  };
+  const err = new RpcError(raw.error, "CONTRACT_EXECUTION_ERROR", raw);
+
+  assert.equal(isMissingMethod(err), false);
+});
+
+test("the empty code hash constant matches what NEAR reports for a bare account", () => {
+  assert.equal(EMPTY_CODE_HASH, "11111111111111111111111111111111");
+  assert.equal(EMPTY_CODE_HASH.length, 32);
+});

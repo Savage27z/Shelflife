@@ -14,7 +14,8 @@
     "weigh": "tsx src/cli.ts weigh",
     "build": "tsc -p tsconfig.build.json",
     "prepare": "npm run build",
-    "report": "tsx src/cli.ts report"
+    "report": "tsx src/cli.ts report",
+    "test": "node --import tsx --test \"test/*.test.ts\""
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
