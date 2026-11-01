@@ -137,7 +137,14 @@ async function runScan() {
   console.log("  verifiable by EITHER    ", eitherPath.length);
   console.log("  verifiable by NEITHER   ", summary.contractsWithCode - eitherPath.length);
   rule();
+  console.log("coverage, metadata present", pct(summary.coveragePct));
+  console.log("coverage, usable link     ", pct(summary.linkCoveragePct), " <- the honest one");
   console.log("coverage, either path     ", pct((eitherPath.length / summary.contractsWithCode) * 100));
+  rule();
+  console.log("distinct bytecode         ", summary.distinctCodeHashes, `(from ${summary.contractsWithCode} accounts)`);
+  console.log("unique-bytecode contracts ", summary.uniqueBytecodeContracts);
+  console.log("  of those, with metadata ", summary.uniqueBytecodeWithMetadata, `(${pct(summary.uniqueBytecodeCoveragePct)})`);
+  rule();
   console.log("SourceScan total, chainwide", verified.size);
   rule("=");
   console.log("\nwrote data/scan-latest.json");

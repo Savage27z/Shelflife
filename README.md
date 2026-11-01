@@ -33,27 +33,51 @@ describes the code that is running — but nothing re-checks it, and nothing mar
 **So on the entire NEAR mainnet, 54 contracts have a verification record that matches the code
 running today.**
 
-### 3. In a sample of significant contracts, 81% are verifiable by neither path
+### 3. Only one contract in five publishes a source link you can actually follow
 
-A 45-account sample of well-known mainnet contracts — DEXes, liquid staking, bridged assets,
-oracles, NFT marketplaces, consumer apps, protocol infrastructure:
+180 contracts taken from NearBlocks in indexer order. Every NEP-141 token and NEP-171 NFT contract
+is indexed, which makes this the one contract population on NEAR that can be enumerated rather than
+hand-picked.
 
 | | |
 |---|---|
-| Contracts inspected | **42** |
-| Publish NEP-330 metadata | 8 |
-| …of those, actually include a repo link | 7 |
-| Present in the SourceScan registry | 3 |
-| **Verifiable by either path** | **8** |
-| **Verifiable by neither** | **34** |
-| Coverage | **19.0%** |
+| Contracts inspected | **168** |
+| Expose NEP-330 metadata | 53 (31.5%) |
+| **...carrying a usable repo link** | **34 (20.2%)** |
+| Publish metadata pointing nowhere | **19** |
+| Present in the SourceScan registry | 6 |
+| No published source at all | 115 |
 
-Contracts with no published source by either route include `wrap.near`, `v2.ref-finance.near`,
-`usdt.tether-token.near`, `aurora`, `social.near`, `meta-pool.near` and `priceoracle.near` — among
-the highest-value contracts on the chain.
+**Metadata presence overstates verifiability.** 19 of the 53 contracts exposing metadata publish no
+link in it -- they declare a version and point nowhere, which is unverifiable in practice. The
+honest coverage figure is the one counting a usable link: **20.2%**.
 
-One contract (`game.hot.tg`) publishes metadata *without* a source link: it declares version 1.2.0
-and points nowhere.
+**Accounts are not programs.** Those 168 accounts run only **101 distinct pieces of bytecode** --
+roughly a third are factory clones. The largest cluster is **34 bridged-token contracts sharing
+identical code, none with metadata**, so counting accounts lets one factory's choice swing the
+aggregate. Counting distinct programs instead: of the **87 unique-bytecode contracts, 41.4% expose
+metadata**.
+
+Contracts with no published source include `wrap.near`, `v2.ref-finance.near`,
+`usdt.tether-token.near`, `aurora`, `social.near` and `meta-pool.near` -- among the highest-value
+contracts on the chain.
+
+#### A prediction this got wrong
+
+Before running it, I expected a broad sweep to score *worse* than the hand-picked set of major
+protocols (19.0%), reasoning that big protocols are likelier to have bothered. The opposite
+happened: 31.5% against 19.0%. Blue-chip contracts largely predate the tooling, while newer token
+contracts are often deployed with toolchains that embed metadata by default. Recorded because a
+measurement that only ever confirms its hypothesis is not worth much.
+
+### 4. Exposure is real, but concentrated -- read both numbers together
+
+Of the NEAR held by inspected contracts, **99.8% sits behind contracts with no published source**.
+That is true and, quoted alone, misleading: **`wrap.near` alone is 90.1% of it**, because wrapped
+NEAR holds the backing for every wNEAR in existence.
+
+`npm run weigh` therefore always prints the concentration table beside the headline, so the
+disclosure travels with the number instead of depending on whoever repeats it.
 
 ## What this does and does not claim
 
@@ -62,12 +86,20 @@ unverifiable, which is not evidence that anyone is lying. No project here is acc
 and the fix is a single command — see below.
 
 **Both paths are checked.** An earlier version of this README reported only NEP-330 metadata and
-flagged that SourceScan records might change the picture. They were then checked, and they do not:
-the three registry entries in the sample are contracts that already publish metadata.
+flagged that SourceScan records might change the picture. They were then checked, and they do not
+rescue the figure: 6 of the 168 inspected contracts appear in the registry.
 
-**Not a census.** No RPC method lists every contract on NEAR, so finding 3 is a sample, with its
-rule documented in `data/targets.json`. Findings 1 and 2 are *complete* — they enumerate the whole
-registry.
+**Not a census.** No RPC method lists every contract on NEAR, so findings 3 and 4 are a sample —
+token contracts, taken from the indexer in its own order, with the rule recorded in
+`data/contracts.json`. It is not weighted toward anything, but it is not the whole chain either,
+and token contracts may not behave like the rest of it.
+
+**Findings 1 and 2 are complete**, not sampled: they enumerate the entire SourceScan registry.
+
+**Nothing here has been rebuilt yet.** Every figure measures whether a source link is *published*,
+not whether that source actually compiles to the deployed bytes. A contract can publish a link to
+code that does not match. That check needs Docker and is the main open item on the roadmap — until
+it lands, read "verifiable" as "a source link exists to check", never as "checked".
 
 ## Quickstart
 

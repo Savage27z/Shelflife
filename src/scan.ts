@@ -98,6 +98,18 @@ export interface Summary {
   /** Metadata is only useful if it points somewhere. */
   withRepoLink: number;
   coveragePct: number;
+  /** Coverage counting only metadata that actually carries a source link. */
+  linkCoveragePct: number;
+  /**
+   * Accounts are not programs. Factory-deployed contracts share bytecode — a single
+   * bridged-token deployment can appear under dozens of accounts — so counting
+   * accounts double-counts one piece of code and drags the aggregate toward whatever
+   * the biggest factory did. These fields count distinct bytecode instead.
+   */
+  distinctCodeHashes: number;
+  uniqueBytecodeContracts: number;
+  uniqueBytecodeWithMetadata: number;
+  uniqueBytecodeCoveragePct: number;
 }
 
 export function summarise(records: ScanRecord[]): Summary {
@@ -118,13 +130,31 @@ export function summarise(records: ScanRecord[]): Summary {
   const withMetadata = byStatus.metadata;
   const withRepoLink = records.filter((r) => Boolean(r.metadata?.link)).length;
 
+  const inspected = records.filter(
+    (r) => r.status === "metadata" || r.status === "no_metadata",
+  );
+  const hashCounts = new Map<string, number>();
+  for (const r of inspected) {
+    if (!r.codeHash) continue;
+    hashCounts.set(r.codeHash, (hashCounts.get(r.codeHash) ?? 0) + 1);
+  }
+  const unique = inspected.filter((r) => r.codeHash && hashCounts.get(r.codeHash) === 1);
+  const uniqueWithMetadata = unique.filter((r) => r.status === "metadata").length;
+
+  const share = (n: number, d: number) => (d === 0 ? 0 : (n / d) * 100);
+
   return {
     scanned: records.length,
     byStatus,
     contractsWithCode,
     withMetadata,
     withRepoLink,
-    coveragePct: contractsWithCode === 0 ? 0 : (withMetadata / contractsWithCode) * 100,
+    coveragePct: share(withMetadata, contractsWithCode),
+    linkCoveragePct: share(withRepoLink, contractsWithCode),
+    distinctCodeHashes: hashCounts.size,
+    uniqueBytecodeContracts: unique.length,
+    uniqueBytecodeWithMetadata: uniqueWithMetadata,
+    uniqueBytecodeCoveragePct: share(uniqueWithMetadata, unique.length),
   };
 }
 
