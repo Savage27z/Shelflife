@@ -119,7 +119,43 @@ SourceScan-verified contracts, NEAR mainnet: 105
   REDEPLOYED since verification       42
 ```
 
-Check any single contract:
+### Check one contract
+
+```bash
+npm run build
+node dist/bin.js devhub.near
+```
+
+```
+devhub.near
+  code hash   EauRt8UydofJitWuttov1zPpcxRKhBLCttYUzw62Diaq
+  source      https://github.com/NEAR-DevHub/neardevhub-contract
+  version     0.2.0
+  SourceScan  verified once, but REDEPLOYED since
+  verified    AUHmE71SPjnq8S3EW7m8ompfVBJxwCt4YfVvFLHtvVnr (no longer deployed)
+
+  This contract was verified, then redeployed. The published source
+  describes code that is no longer running.
+```
+
+That case is the one most likely to be misread, because explorers still show such a
+contract as verified.
+
+**Exit codes, so it can gate a pipeline:**
+
+| Code | Meaning |
+|---|---|
+| `0` | a source link is published |
+| `1` | no source published |
+| `2` | not a contract |
+| `3` | lookup failed |
+
+```bash
+# fail your own build if a dependency goes dark
+node dist/bin.js some-dependency.near || echo "dependency publishes no source"
+```
+
+Or through the shorter script form:
 
 ```bash
 npm run check -- wrap.near            # NO SOURCE LINK, not in registry
@@ -171,7 +207,7 @@ Then verify and publish on NearBlocks, under the contract's Contract tab.
 - [ ] Reproducible rebuild via Docker + `cargo near`, hash comparison — does the published source
       actually produce the deployed bytes?
 - [ ] Weight findings by value and transaction volume
-- [ ] `npx sourcecheck <account.near>`
+- [x] `sourcecheck <account.near>` — single-contract checker with CI exit codes
 
 ## Dependencies and prior code
 

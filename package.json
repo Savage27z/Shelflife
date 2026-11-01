@@ -11,11 +11,21 @@
     "typecheck": "tsc --noEmit",
     "verified": "tsx src/cli.ts verified",
     "enumerate": "tsx src/cli.ts enumerate",
-    "weigh": "tsx src/cli.ts weigh"
+    "weigh": "tsx src/cli.ts weigh",
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
-  }
+  },
+  "bin": {
+    "sourcecheck": "dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
 }
