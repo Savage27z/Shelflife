@@ -184,7 +184,7 @@ unreadable answer must not fail someone's build.
 | Command | What it does | Runtime (approx.) |
 |---|---|---|
 | `npm test` | the test suite, no network | 3 s |
-| `node dist/bin.js <account>` | check one contract | 3 s |
+| `node dist/bin.js <account>` | check one contract | 3–15 s, depending on the public RPC |
 | `npm run weigh` | NEAR custody and its concentration → finding 3 | instant |
 | `npm run report` | regenerate `report/index.html` from `data/` | instant |
 | `npm run enumerate -- <n>` | rebuild the target set from the indexer | 1 min |
