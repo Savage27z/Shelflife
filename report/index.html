@@ -27,14 +27,15 @@
   .lede { color: var(--muted); font-size: 1.05rem; }
   .meta { color: var(--muted); font-size: 0.85rem; }
   .big { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 20px 0; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 20px 0; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
   .card .label { color: var(--muted); font-size: 0.82rem; margin-top: 6px; }
   table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 0.92rem; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
   th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.key td { font-weight: 700; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88em; word-break: break-all; }
   .note { border-left: 3px solid var(--warn); padding: 10px 14px; margin: 18px 0;
           background: var(--card); border-radius: 0 8px 8px 0; font-size: 0.93rem; }
   .accent { color: var(--accent); } .warn { color: var(--warn); } .bad { color: var(--bad); }
@@ -43,107 +44,134 @@
 </style>
 <main>
 
-<h1>How many NEAR contracts actually match their published source?</h1>
+<h1>How much NEAR contract source can anyone actually check?</h1>
 <p class="lede">A blockchain runs machine code. Projects publish readable source and say
-&ldquo;this is what it does.&rdquo; Almost nobody checks whether the two match. This measures it.</p>
+&ldquo;this is what it does.&rdquo; Almost nobody checks whether a link goes anywhere, or whether the two
+match. This measures the first of those, across NEAR mainnet.</p>
 
-<h2>1. Across all of NEAR mainnet, 105 contracts have ever been verified</h2>
-<p>Read directly from SourceScan&rsquo;s on-chain registry
-(<code>v2-verifier.sourcescan.near</code>), which backs the Verify-and-Publish button on
-NearBlocks. This figure is <strong>complete, not sampled</strong>.</p>
-<div class="cards">
-  <div class="card"><div class="big">105</div><div class="label">contracts ever verified</div></div>
-  <div class="card"><div class="big accent">54</div><div class="label">records matching code deployed today</div></div>
-  <div class="card"><div class="big warn">42</div><div class="label">redeployed since verification</div></div>
-</div>
-
-<h2>2. Two in five verifications are already out of date</h2>
-<p>A verification record pins a specific code hash. When the account redeploys, the record
-stops describing the running code &mdash; but nothing re-checks it, and explorers still show
-the contract as verified. <strong>40.0% of all verified contracts have redeployed
-since.</strong></p>
-<h3>Verified, then redeployed (first 25 of 42)</h3>
-<table><thead><tr><th>Account</th><th style="text-align:right">Verified at block</th></tr></thead>
-<tbody>
-<tr><td><code>devhub.near</code></td><td class="num">130548343</td></tr>
-<tr><td><code>shit.0xshitzu.near</code></td><td class="num">133270893</td></tr>
-<tr><td><code>dev-unaudited-v1.oracle.intear.near</code></td><td class="num">135805798</td></tr>
-<tr><td><code>omni.bridge.near</code></td><td class="num">220505232</td></tr>
-<tr><td><code>rug-testing.near</code></td><td class="num">141625520</td></tr>
-<tr><td><code>hello.sleet.near</code></td><td class="num">142527770</td></tr>
-<tr><td><code>steak-finance.near</code></td><td class="num">144727425</td></tr>
-<tr><td><code>lst100.ref-dev-team.near</code></td><td class="num">159749693</td></tr>
-<tr><td><code>lst.rhealab.near</code></td><td class="num">159861662</td></tr>
-<tr><td><code>zcash-client.bridge.near</code></td><td class="num">207096544</td></tr>
-<tr><td><code>vault2.ft-lockup.near</code></td><td class="num">164270575</td></tr>
-<tr><td><code>aa-dew.near</code></td><td class="num">164422505</td></tr>
-<tr><td><code>0xe9b749e48da92db916b058f05fc953ce0a2ee363-eth.aa-dew.near</code></td><td class="num">164440491</td></tr>
-<tr><td><code>slimedrop.intear.near</code></td><td class="num">165781387</td></tr>
-<tr><td><code>subdued-snow-round-cliff.ft-lockup.near</code></td><td class="num">165406170</td></tr>
-<tr><td><code>treasury-testing-round1-postcliff.ft-lockup.near</code></td><td class="num">165686700</td></tr>
-<tr><td><code>first.slimytest.near</code></td><td class="num">167252396</td></tr>
-<tr><td><code>venear.dao</code></td><td class="num">202357120</td></tr>
-<tr><td><code>vote.dao</code></td><td class="num">202357066</td></tr>
-<tr><td><code>btc-connector.bridge.near</code></td><td class="num">197307215</td></tr>
-<tr><td><code>93b787ac14f6.user0.tmplr.near</code></td><td class="num">168380693</td></tr>
-<tr><td><code>staging-intents.near</code></td><td class="num">170178837</td></tr>
-<tr><td><code>intents.near</code></td><td class="num">218546981</td></tr>
-<tr><td><code>v1.tmplr.near</code></td><td class="num">170653647</td></tr>
-<tr><td><code>zcash-connector.bridge.near</code></td><td class="num">217103485</td></tr>
-</tbody></table>
-
-<h2>3. Only one contract in five publishes a source link you can follow</h2>
-<p>180 contracts taken from NearBlocks in indexer order &mdash; token contracts are
-the one population on NEAR that can be enumerated rather than hand-picked.</p>
-<table><thead><tr><th>Measure</th><th style="text-align:right">Count</th><th style="text-align:right">Share</th></tr></thead>
-<tbody>
+<h2>1. Only 6 of 168 token contracts publish source that could be rebuilt</h2>
+<p>Of <strong>168</strong> token contracts inspected, only
+       <strong>6 (3.6%)</strong> publish a source link that both
+       resolves and is pinned to a commit &mdash; the minimum anyone would need to rebuild the code and
+       compare it with what is deployed.</p>
+<table><thead><tr><th>Stage</th><th class="num">Contracts</th><th class="num">Share of inspected</th></tr></thead><tbody>
 <tr><td>Contracts inspected</td><td class="num">168</td><td class="num">&mdash;</td></tr>
-<tr><td>Expose NEP-330 metadata</td><td class="num">53</td><td class="num">31.5%</td></tr>
-<tr><td><strong>Carrying a usable repo link</strong></td><td class="num"><strong>34</strong></td><td class="num"><strong>20.2%</strong></td></tr>
-<tr><td>Metadata pointing nowhere</td><td class="num">19</td><td class="num">&mdash;</td></tr>
-<tr><td>In the SourceScan registry</td><td class="num">6</td><td class="num">&mdash;</td></tr>
+<tr><td>Expose NEP-330 source metadata</td><td class="num">53</td><td class="num">31.5%</td></tr>
+<tr><td>&hellip;carrying a source link</td><td class="num">34</td><td class="num">20.2%</td></tr>
+<tr><td>&hellip;whose repository resolves</td><td class="num">28</td><td class="num">16.7%</td></tr>
+<tr class="key"><td>&hellip;and is pinned to a commit &mdash; <strong>could be rebuilt</strong></td><td class="num">6</td><td class="num">3.6%</td></tr>
 </tbody></table>
+<div class="note"><strong>A link is not source.</strong> The 34 contracts that
+carry a link point at only <strong>13 distinct GitHub repositories</strong>.
+4 of them return 404 (gone, or private), and 1 contract publishes a literal template placeholder such as <code>https://github.com/&lt;xxx&gt;/&lt;xxx&gt;</code>.
+Of the links that do resolve, only 8 of 33 name a commit; the rest point at a
+repository front page, which cannot be tied to a particular deployed version.</div>
 <div class="note"><strong>Metadata presence overstates verifiability.</strong>
-19 of the 53 contracts exposing metadata publish no
-link in it &mdash; a version string pointing nowhere. The honest figure is the one counting a
-usable link: <strong>20.2%</strong>.</div>
-<div class="note"><strong>Accounts are not programs.</strong> Those 168 accounts
-run only <strong>101 distinct pieces of bytecode</strong> &mdash; roughly a
-third are factory clones, so one factory&rsquo;s choice can swing the aggregate. Counting distinct
-programs instead: of 87 unique-bytecode contracts,
-<strong>41.4%</strong> expose metadata.</div>
+19 of the 53 contracts exposing metadata publish no link in it &mdash; a
+version string pointing nowhere.</div>
+<div class="note"><strong>Accounts are not programs.</strong> Those 168 accounts run only
+<strong>101 distinct pieces of bytecode</strong>, because factories deploy clones. Counting
+distinct programs, <strong>41.4%</strong> of the 87
+unique-bytecode contracts expose metadata.</div>
+<h3>By kind of token contract</h3>
+<table><thead><tr><th>Kind</th><th class="num">Inspected</th><th class="num">Metadata</th><th class="num">With a link</th></tr></thead><tbody>
+<tr><td>Fungible tokens</td><td class="num">84</td><td class="num">26.2%</td><td class="num">17.9%</td></tr>
+<tr><td>NFT contracts</td><td class="num">84</td><td class="num">36.9%</td><td class="num">22.6%</td></tr>
+</tbody></table>
+<p class="meta">The sample is the first 90 fungible-token and first 90 NFT contracts in the order the NearBlocks
+API returns them. That order is not random: the fungible list leads with the best-known tokens, and the NFT list is
+dominated by airdrop and reward contracts, several of them clone families that happen to carry metadata. It is a
+sample of token contracts, not of the chain.</p>
 
-<h2>4. Exposure is real, but concentrated</h2>
-<p>Of the NEAR held by inspected contracts, <strong>99.8%</strong>
-sits behind contracts with no published source. That is true and, quoted alone, misleading &mdash;
-it is dominated by a handful of accounts.</p>
-<table><thead><tr><th>Account</th><th style="text-align:right">NEAR held</th><th style="text-align:right">Share of sample</th><th style="text-align:right">State</th></tr></thead>
-<tbody>
+<h2>2. 112 contracts have ever been verified with SourceScan; 64 records still match what is deployed</h2>
+<p>SourceScan keeps two registries: <code>v2-verifier.sourcescan.near</code>
+(105 records) and an older <code>sourcescan.near</code>
+(7, none of them in the current one). The older registry records no code hash, so those
+cannot be checked against what is deployed.</p>
+<div class="cards">
+  <div class="card"><div class="big">112</div><div class="label">records, both registries</div></div>
+  <div class="card"><div class="big accent">64</div><div class="label">current registry: still matches deployed code</div></div>
+  <div class="card"><div class="big warn">29</div><div class="label">redeployed since verification</div></div>
+  <div class="card"><div class="big">9</div><div class="label">account no longer exists</div></div>
+</div>
+<h3>What the 29 redeployed contracts publish today</h3>
+<table><thead><tr><th>Today</th><th class="num">Contracts</th></tr></thead><tbody>
+<tr class="key"><td>A source link of their own</td><td class="num">27 (25 pinned to a commit)</td></tr>
+<tr><td>Metadata, but no link</td><td class="num">0</td></tr>
+<tr><td>Nothing</td><td class="num">2</td></tr>
+<tr><td>Will not compile</td><td class="num">0</td></tr>
+<tr><td>Undetermined</td><td class="num">0</td></tr>
+</tbody></table>
+<div class="note"><strong>A stale record is mostly not a trust gap.</strong>
+27 of the 29 redeployed contracts now publish a link of their own, so the registry has largely been superseded by NEP-330 metadata rather than source going dark. What a stale record does mean is narrower: SourceScan holds no rebuild of the <em>current</em> code, and whether
+those links actually reproduce the deployed bytes is not checked here.</div>
+<p class="meta">0 records could not be determined and 3 had the contract code removed from the account.</p>
+<p>17 of the 112 account names look like tests or staging deployments
+(a name heuristic, not a classification). The registry is not 112 real projects.</p>
+<h3>Redeployed since verification (first 25 of 29)</h3>
+<table><thead><tr><th>Account</th><th>Publishes today</th><th>Link</th></tr></thead><tbody>
+<tr><td><code>devhub.near</code></td><td>publishes a source link</td><td><code>https://github.com/NEAR-DevHub/neardevhub-contract</code> (not pinned)</td></tr>
+<tr><td><code>shit.0xshitzu.near</code></td><td>publishes a source link</td><td><code>https://github.com/Shitzu-Apes/validator-rewards/tree/0388144c9fff6d869a1b26bfecdcc89edff775bc</code></td></tr>
+<tr><td><code>dev-unaudited-v1.oracle.intear.near</code></td><td>publishes a source link</td><td><code>https://github.com/INTEARnear/oracle/tree/c8ddef493ece47e3ce0e97ba75ebeaceaa7af99e</code></td></tr>
+<tr><td><code>omni.bridge.near</code></td><td>publishes a source link</td><td><code>https://github.com/Near-One/omni-bridge/tree/83e3ac1eeef6b1330744f53d68dd037fa53aab0f</code></td></tr>
+<tr><td><code>hello.sleet.near</code></td><td>publishes nothing</td><td></td></tr>
+<tr><td><code>steak-finance.near</code></td><td>publishes a source link</td><td><code>https://github.com/NearSpeedBuild/single-token-farm/tree/f85393398c14b0d180aa7f2adebb259d11b83988</code></td></tr>
+<tr><td><code>lst100.ref-dev-team.near</code></td><td>publishes a source link</td><td><code>https://github.com/ref-finance/rnear-contract/tree/1f3b7ccfa1e07eabae23c4ff08cede0af9f9a593</code></td></tr>
+<tr><td><code>lst.rhealab.near</code></td><td>publishes a source link</td><td><code>https://github.com/rhea-finance/rnear-contract/tree/c04e9008bfbf7a44d99c8f66179deb715a7357f9</code></td></tr>
+<tr><td><code>zcash-client.bridge.near</code></td><td>publishes a source link</td><td><code>https://github.com/Near-One/btc-light-client-contract/tree/6ac0e219e2a560522e012c18115a663b5e61de1e</code></td></tr>
+<tr><td><code>aa-dew.near</code></td><td>publishes a source link</td><td><code>https://github.com/Meteor-Wallet/dew-abstract-account/tree/d0c27209d986bedee260787d7e9492da7a2e724c</code></td></tr>
+<tr><td><code>slimedrop.intear.near</code></td><td>publishes a source link</td><td><code>https://github.com/Sliman4/slimedrop-contract/tree/0f9d5f4c758621e529d7687de64702db2d129551</code></td></tr>
+<tr><td><code>venear.dao</code></td><td>publishes a source link</td><td><code>https://github.com/fastnear/house-of-stake-contracts/tree/86ed610f90f28e10977278c62f41122b850cba91</code></td></tr>
+<tr><td><code>vote.dao</code></td><td>publishes a source link</td><td><code>https://github.com/houseofstake/house-of-stake-contracts/tree/32611da14aed42127421e777eec0e98094de6d2d</code></td></tr>
+<tr><td><code>btc-connector.bridge.near</code></td><td>publishes a source link</td><td><code>https://github.com/Near-One/btc-bridge/tree/7740fae0ed8dc56571adfe2aaf36bd4edee0d441</code></td></tr>
+<tr><td><code>staging-intents.near</code></td><td>publishes a source link</td><td><code>https://github.com/near/intents/tree/16d04f6ec4401263f8914638710260da50bb46b0</code></td></tr>
+<tr><td><code>intents.near</code></td><td>publishes a source link</td><td><code>https://github.com/near/intents/tree/16d04f6ec4401263f8914638710260da50bb46b0</code></td></tr>
+<tr><td><code>v1.tmplr.near</code></td><td>publishes a source link</td><td><code>https://github.com/Templar-Protocol/contracts/tree/291afbb4139257e81c7da67049c32822725aa5e0</code></td></tr>
+<tr><td><code>zcash-connector.bridge.near</code></td><td>publishes a source link</td><td><code>https://github.com/Near-One/btc-bridge/tree/d723cacec437a0468b32e58391ce0348a6e37485</code></td></tr>
+<tr><td><code>dex.intear.near</code></td><td>publishes a source link</td><td><code>https://github.com/INTEARnear/dex/tree/d2a55aeb416b79da8f67aef066d5defb314c3e99</code></td></tr>
+<tr><td><code>0sa8247564c6774a33b975a053fc4fbebbd869772d</code></td><td>publishes a source link</td><td><code>https://github.com/near/intents/tree/ff7ebd2f2159217ce3be15bdace78e19aeeb56e6</code></td></tr>
+<tr><td><code>v2.jars.sweat</code></td><td>publishes a source link</td><td><code>https://github.com/sweatco/sweat-jar/tree/f9c5de4d8c441166c6ace19fc9e50c0c16bf86cf</code></td></tr>
+<tr><td><code>btc-client.bridge.near</code></td><td>publishes a source link</td><td><code>https://github.com/Near-One/btc-light-client-contract/tree/4f326419c0ce2bee87c19df17c2b40e96ee12dc3</code></td></tr>
+<tr><td><code>ibtc-iethusdc-1.v1.tmplr.near</code></td><td>publishes a source link</td><td><code>https://github.com/Templar-Protocol/contracts/tree/07e20fc79d711cea39cd9c55fc7f1f5aa0f5a1c2</code></td></tr>
+<tr><td><code>vote.degenhostest.near</code></td><td>publishes a source link</td><td><code>https://github.com/houseofstake/house-of-stake-contracts</code> (not pinned)</td></tr>
+<tr><td><code>e85f23b81ab3edbdf4c0e5fd889eed50cc2bd465c57c67b71105741ac1b8ceda</code></td><td>publishes nothing</td><td></td></tr>
+</tbody></table>
+
+<h2>3. NEAR held behind unpublished source is concentrated in one account</h2>
+<p>Of the NEAR held by the inspected contracts, <strong>99.8%</strong> sits in contracts
+with neither metadata nor a registry record. That is true and, quoted alone, misleading &mdash; it is dominated by a
+handful of accounts.</p>
+<table><thead><tr><th>Account</th><th class="num">NEAR held</th><th class="num">Share of sample</th><th class="num">State</th></tr></thead><tbody>
 <tr><td><code>wrap.near</code></td><td class="num">34,793,990.39</td><td class="num">90.1%</td><td class="num">160.0 MB</td></tr>
 <tr><td><code>meta-pool.near</code></td><td class="num">3,732,281.38</td><td class="num">9.7%</td><td class="num">8.3 MB</td></tr>
 <tr><td><code>17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1</code></td><td class="num">7,287.62</td><td class="num">0.0%</td><td class="num">62.8 MB</td></tr>
 <tr><td><code>alpha-x.raddx.near</code></td><td class="num">5,050.29</td><td class="num">0.0%</td><td class="num">415.0 KB</td></tr>
 <tr><td><code>mint.sharddog.near</code></td><td class="num">2,209.02</td><td class="num">0.0%</td><td class="num">205.8 MB</td></tr>
 </tbody></table>
-<div class="note">Wrapped NEAR holds the backing for every wNEAR in existence, so one account
-dominates the total. <strong>Quote the headline with this table, never without it.</strong></div>
+<div class="note">Wrapped NEAR holds the backing for every wNEAR in existence, so one account dominates the
+total. <strong>Quote the headline with this table, never without it.</strong> This counts NEAR balance only: a token
+contract&rsquo;s value to its users is in the tokens it issues, which this does not capture. Treat it as a floor, not
+a measure of risk.</div>
 
 <h2>What this does and does not claim</h2>
-<p><strong>Verification coverage, not honesty.</strong> A contract publishing no source is
-unverifiable &mdash; that is not evidence anyone is lying, and no project here is accused of
-anything. The fix is two commands.</p>
-<p><strong>Nothing has been rebuilt.</strong> Every figure measures whether a source link is
-<em>published</em>, not whether that source compiles to the deployed bytes. Read
-&ldquo;verifiable&rdquo; as &ldquo;a link exists to check&rdquo;, never as &ldquo;checked&rdquo;.</p>
-<p><strong>Findings 1 and 2 are complete</strong>, enumerating the whole registry. Findings 3 and 4
-are a sample of token contracts, and token contracts may not behave like the rest of the chain.</p>
-<p class="meta">Scan 2026-10-31T12:57:58.613Z &middot; registry 2026-10-31T11:55:45.371Z</p>
+<p><strong>Verification coverage, not honesty.</strong> A contract publishing no source is unverifiable. That is not
+evidence anyone is lying, and no project is accused of anything.</p>
+<p><strong>Nothing has been rebuilt.</strong> Every figure measures what is <em>published</em>, not whether it compiles
+to the deployed bytes. &ldquo;Rebuildable&rdquo; means a rebuild would be possible, not that one was done.</p>
+<p><strong>A 404 is ambiguous.</strong> GitHub returns the same for a deleted repository and a private one.</p>
+<p><strong>The tooling is Rust-only.</strong> Every one of the 105 current-registry records is Rust, and
+NEP-330 metadata comes from Rust tooling, so a contract written in another language cannot carry it. The share of
+non-Rust contracts in the sample was not measured, so part of the gap here may be structural.</p>
+<p><strong>The sample is token contracts</strong>, which may not behave like the rest of the chain. The registry
+counts in section 2 are complete for both SourceScan registries; they are not a statement about verification
+elsewhere (an explorer may hold records of its own).</p>
+<p class="meta">Scan 2026-10-31T12:57:58.613Z &middot; registries 2026-11-02T08:50:08.066Z &middot; links 2026-11-02T08:38:37.752Z</p>
 
 <footer>
-  <p>Generated 2026-11-01T15:41:23.998Z from the datasets committed in <code>data/</code>.
-  Every figure is computed from those files, not written by hand — re-run
-  <code>npm run scan</code>, <code>npm run verified</code> and <code>npm run report</code>
-  to reproduce this page.</p>
+  <p>Generated 2026-11-02T08:50:50.310Z from the datasets committed in <code>data/</code>. Every
+  figure is computed from those files, not written by hand. Re-run <code>npm run scan</code>,
+  <code>npm run links</code>, <code>npm run verified</code> and <code>npm run report</code> to
+  reproduce it.</p>
 </footer>
 </main>
 </html>

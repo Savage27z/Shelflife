@@ -1,56 +1,296 @@
 {
-  "generatedAt": "2026-10-31T11:55:45.371Z",
-  "verifier": "v2-verifier.sourcescan.near",
-  "totalVerified": 105,
-  "byLanguage": {
-    "rust": 105
+  "generatedAt": "2026-11-02T08:50:08.066Z",
+  "registries": {
+    "v2": {
+      "account": "v2-verifier.sourcescan.near",
+      "records": 105
+    },
+    "legacy": {
+      "account": "sourcescan.near",
+      "records": 7
+    }
   },
-  "stillMatchesChain": 54,
-  "redeployedSinceVerification": 42,
-  "accountUnreachable": 9,
-  "staleAccounts": [
-    "devhub.near",
-    "shit.0xshitzu.near",
-    "dev-unaudited-v1.oracle.intear.near",
-    "omni.bridge.near",
-    "rug-testing.near",
-    "hello.sleet.near",
-    "steak-finance.near",
-    "lst100.ref-dev-team.near",
-    "lst.rhealab.near",
-    "zcash-client.bridge.near",
+  "unionRecords": 112,
+  "legacyOnly": [
+    "agruzdev.near",
+    "sourcescan.near",
+    "nearustexample.near",
+    "rustnftexample.near",
+    "rustftexample.near",
+    "shiftsa.near",
+    "anoname.near"
+  ],
+  "v2": {
+    "total": 105,
+    "byLanguage": {
+      "rust": 105
+    },
+    "current": 64,
+    "redeployed": 29,
+    "deleted": 9,
+    "codeRemoved": 3,
+    "unresolved": 0
+  },
+  "staleToday": {
+    "publishesLink": 27,
+    "publishesPinnedLink": 25,
+    "metadataNoLink": 0,
+    "publishesNothing": 2,
+    "brokenContract": 0,
+    "unresolved": 0
+  },
+  "testLikeAccounts": {
+    "inUnion": 17,
+    "inCurrent": 11
+  },
+  "stale": [
+    {
+      "accountId": "devhub.near",
+      "today": "link",
+      "link": "https://github.com/NEAR-DevHub/neardevhub-contract",
+      "pinned": false
+    },
+    {
+      "accountId": "shit.0xshitzu.near",
+      "today": "link",
+      "link": "https://github.com/Shitzu-Apes/validator-rewards/tree/0388144c9fff6d869a1b26bfecdcc89edff775bc",
+      "pinned": true
+    },
+    {
+      "accountId": "dev-unaudited-v1.oracle.intear.near",
+      "today": "link",
+      "link": "https://github.com/INTEARnear/oracle/tree/c8ddef493ece47e3ce0e97ba75ebeaceaa7af99e",
+      "pinned": true
+    },
+    {
+      "accountId": "omni.bridge.near",
+      "today": "link",
+      "link": "https://github.com/Near-One/omni-bridge/tree/83e3ac1eeef6b1330744f53d68dd037fa53aab0f",
+      "pinned": true
+    },
+    {
+      "accountId": "hello.sleet.near",
+      "today": "none"
+    },
+    {
+      "accountId": "steak-finance.near",
+      "today": "link",
+      "link": "https://github.com/NearSpeedBuild/single-token-farm/tree/f85393398c14b0d180aa7f2adebb259d11b83988",
+      "pinned": true
+    },
+    {
+      "accountId": "lst100.ref-dev-team.near",
+      "today": "link",
+      "link": "https://github.com/ref-finance/rnear-contract/tree/1f3b7ccfa1e07eabae23c4ff08cede0af9f9a593",
+      "pinned": true
+    },
+    {
+      "accountId": "lst.rhealab.near",
+      "today": "link",
+      "link": "https://github.com/rhea-finance/rnear-contract/tree/c04e9008bfbf7a44d99c8f66179deb715a7357f9",
+      "pinned": true
+    },
+    {
+      "accountId": "zcash-client.bridge.near",
+      "today": "link",
+      "link": "https://github.com/Near-One/btc-light-client-contract/tree/6ac0e219e2a560522e012c18115a663b5e61de1e",
+      "pinned": true
+    },
+    {
+      "accountId": "aa-dew.near",
+      "today": "link",
+      "link": "https://github.com/Meteor-Wallet/dew-abstract-account/tree/d0c27209d986bedee260787d7e9492da7a2e724c",
+      "pinned": true
+    },
+    {
+      "accountId": "slimedrop.intear.near",
+      "today": "link",
+      "link": "https://github.com/Sliman4/slimedrop-contract/tree/0f9d5f4c758621e529d7687de64702db2d129551",
+      "pinned": true
+    },
+    {
+      "accountId": "venear.dao",
+      "today": "link",
+      "link": "https://github.com/fastnear/house-of-stake-contracts/tree/86ed610f90f28e10977278c62f41122b850cba91",
+      "pinned": true
+    },
+    {
+      "accountId": "vote.dao",
+      "today": "link",
+      "link": "https://github.com/houseofstake/house-of-stake-contracts/tree/32611da14aed42127421e777eec0e98094de6d2d",
+      "pinned": true
+    },
+    {
+      "accountId": "btc-connector.bridge.near",
+      "today": "link",
+      "link": "https://github.com/Near-One/btc-bridge/tree/7740fae0ed8dc56571adfe2aaf36bd4edee0d441",
+      "pinned": true
+    },
+    {
+      "accountId": "staging-intents.near",
+      "today": "link",
+      "link": "https://github.com/near/intents/tree/16d04f6ec4401263f8914638710260da50bb46b0",
+      "pinned": true
+    },
+    {
+      "accountId": "intents.near",
+      "today": "link",
+      "link": "https://github.com/near/intents/tree/16d04f6ec4401263f8914638710260da50bb46b0",
+      "pinned": true
+    },
+    {
+      "accountId": "v1.tmplr.near",
+      "today": "link",
+      "link": "https://github.com/Templar-Protocol/contracts/tree/291afbb4139257e81c7da67049c32822725aa5e0",
+      "pinned": true
+    },
+    {
+      "accountId": "zcash-connector.bridge.near",
+      "today": "link",
+      "link": "https://github.com/Near-One/btc-bridge/tree/d723cacec437a0468b32e58391ce0348a6e37485",
+      "pinned": true
+    },
+    {
+      "accountId": "dex.intear.near",
+      "today": "link",
+      "link": "https://github.com/INTEARnear/dex/tree/d2a55aeb416b79da8f67aef066d5defb314c3e99",
+      "pinned": true
+    },
+    {
+      "accountId": "0sa8247564c6774a33b975a053fc4fbebbd869772d",
+      "today": "link",
+      "link": "https://github.com/near/intents/tree/ff7ebd2f2159217ce3be15bdace78e19aeeb56e6",
+      "pinned": true
+    },
+    {
+      "accountId": "v2.jars.sweat",
+      "today": "link",
+      "link": "https://github.com/sweatco/sweat-jar/tree/f9c5de4d8c441166c6ace19fc9e50c0c16bf86cf",
+      "pinned": true
+    },
+    {
+      "accountId": "btc-client.bridge.near",
+      "today": "link",
+      "link": "https://github.com/Near-One/btc-light-client-contract/tree/4f326419c0ce2bee87c19df17c2b40e96ee12dc3",
+      "pinned": true
+    },
+    {
+      "accountId": "ibtc-iethusdc-1.v1.tmplr.near",
+      "today": "link",
+      "link": "https://github.com/Templar-Protocol/contracts/tree/07e20fc79d711cea39cd9c55fc7f1f5aa0f5a1c2",
+      "pinned": true
+    },
+    {
+      "accountId": "vote.degenhostest.near",
+      "today": "link",
+      "link": "https://github.com/houseofstake/house-of-stake-contracts",
+      "pinned": false
+    },
+    {
+      "accountId": "e85f23b81ab3edbdf4c0e5fd889eed50cc2bd465c57c67b71105741ac1b8ceda",
+      "today": "none"
+    },
+    {
+      "accountId": "bulkpayment.near",
+      "today": "link",
+      "link": "https://github.com/NEAR-DevHub/trezu/tree/b04ef74b01e88dbfc13ea0d6f9f48abee16c9890",
+      "pinned": true
+    },
+    {
+      "accountId": "0se5eba21e8f191e1880e453794bc551dfa50a3419",
+      "today": "link",
+      "link": "https://github.com/near/intents/tree/930902ec9589e3c431c9d2c489485422befcbdd0",
+      "pinned": true
+    },
+    {
+      "accountId": "cnear.assetize.near",
+      "today": "link",
+      "link": "https://github.com/sig-net/cNEAR/tree/e84bfdf383dcfd5dec627a40e6304e097667271b",
+      "pinned": true
+    },
+    {
+      "accountId": "registrar",
+      "today": "link",
+      "link": "https://github.com/houseofstake/tla-contracts/tree/c33edd7a3495378c5503fbe5e56e814ae9ce667f",
+      "pinned": true
+    }
+  ],
+  "deleted": [
+    "usdcc-token.gemsrock-nft.near",
+    "monad-bridge.gemsrock-nft.near",
+    "flame-token.gemsrock-nft.near",
+    "test-multisig.atlas-oracle.near",
+    "registry.orvyn.near",
+    "id.orvyn.near",
+    "market.nearmissboard.near",
+    "launchpad.nearmissboard.near",
+    "swap.orvyn.near"
+  ],
+  "current": [
+    "buidtest.agruzdev.near",
+    "v2-verifier.sourcescan.near",
+    "buildtest-2.agruzdev.near",
+    "buildtest-3.agruzdev.near",
+    "buildtest-5.agruzdev.near",
+    "buildtest-4.agruzdev.near",
+    "birthday-quest.near",
+    "dev-unaudited-v0.oracle.intear.near",
+    "gpt-reclaim.oracle.intear.near",
+    "9873182a141cc2212b902f59ce26bf815eb63ebf6a7d1c02920f0cdb2572b2f6",
+    "pyth-oracle.near",
+    "linkoftrust.near",
+    "eth-prover.bridge.near",
+    "eth.bridge.near",
+    "web3stick.near",
+    "vaa-prover-0_2_7.bridge.near",
+    "eth-prover-0_2_7.bridge.near",
+    "client-eth2.bridge.near",
+    "reduce-inflation.near",
+    "token.rhealab.near",
+    "token.publicailab.near",
+    "ibtc-usdt.templar-alpha.near",
+    "ibtc-usdc.v1.tmplr.near",
+    "stnear-usdc.v1.tmplr.near",
+    "raredrop.near",
+    "vaa-prover-0_2_12.bridge.near",
+    "near",
+    "ft-lockup.near",
     "vault2.ft-lockup.near",
-    "aa-dew.near",
     "0xe9b749e48da92db916b058f05fc953ce0a2ee363-eth.aa-dew.near",
-    "slimedrop.intear.near",
+    "mpdao-token.near",
+    "slimedrop.intearstaging.near",
     "subdued-snow-round-cliff.ft-lockup.near",
     "treasury-testing-round1-postcliff.ft-lockup.near",
     "first.slimytest.near",
-    "venear.dao",
-    "vote.dao",
-    "btc-connector.bridge.near",
+    "ibtc-usdc-1.v1.tmplr.near",
+    "itlx.intellex_xyz.near",
     "93b787ac14f6.user0.tmplr.near",
-    "staging-intents.near",
-    "intents.near",
-    "v1.tmplr.near",
-    "zcash-connector.bridge.near",
-    "dex.intear.near",
+    "sova-vault-zec.near",
+    "sova-vault-usdc.near",
+    "v1.signer",
+    "nbtc.bridge.near",
+    "nzec.bridge.near",
+    "izec-isolusdc.v1.tmplr.near",
+    "ibtc-iethusdc.v1.tmplr.near",
+    "rewards-claims-staging.near",
+    "vaa-prover-0_4_3.bridge.near",
+    "vaa-prover-0_4_1.bridge.near",
+    "kernel-usdt.meteor-vaults.near",
+    "penmt.mettal.near",
     "0s384bfa53f1718c7f53eaaa1b43c55e2aea3ef309",
-    "0sa8247564c6774a33b975a053fc4fbebbd869772d",
     "jau.sputnik-dao.near",
-    "v2.jars.sweat",
-    "btc-client.bridge.near",
-    "ibtc-iethusdc-1.v1.tmplr.near",
-    "vote.degenhostest.near",
-    "happy-birthday-vlad.near",
-    "e85f23b81ab3edbdf4c0e5fd889eed50cc2bd465c57c67b71105741ac1b8ceda",
-    "bulkpayment.near",
-    "0se5eba21e8f191e1880e453794bc551dfa50a3419",
+    "vaa-prover-0_4_10.bridge.near",
+    "sputnik-dao.near",
+    "token.sweat",
+    "mpc-prover-0_4_12.bridge.near",
+    "sol.omft.near",
     "proxy-gov-stnear-usdt.v1.tmplr.near",
-    "cnear.assetize.near",
-    "registrar",
-    "nearmissboard.near",
-    "proxy-oracle-iethfxrp-ixlmusdc.v1.tmplr.near"
+    "pull-verifier.atlas-oracle.near",
+    "multi-feed-qa-1.atlas-oracle.near",
+    "stake.dao",
+    "proxy-oracle-iethfxrp-ixlmusdc.v1.tmplr.near",
+    "mpc-prover-0_4_18.bridge.near",
+    "claim.sweat"
   ],
   "records": {
     "buidtest.agruzdev.near": {
@@ -892,6 +1132,85 @@
       "block_height": 222112597,
       "votes": [],
       "comments": []
+    }
+  },
+  "legacyRecords": {
+    "agruzdev.near": {
+      "cid": "Qmdh5JPtqvF5KksDiJuHeuoda1xhak6S52qoahEsrxEJ46",
+      "lang": "rust",
+      "entry_point": "NFT/nft/Cargo.toml",
+      "deploy_tx": "BzRMP3zjVnBXrFoyx6LQRnBVEypqdDjDUPtKJ3Rb55BJ",
+      "github": {
+        "owner": "near-examples",
+        "repo": "NFT",
+        "sha": "4f0eecf293f0a622aaec452f9709eef5a342a6e3"
+      }
+    },
+    "sourcescan.near": {
+      "cid": "QmdCDwMeXGQYTCHKfAM7yVQSp1WyK2f66Qzu9i9Ag4LCNk",
+      "lang": "rust",
+      "entry_point": "near-explorer-contract/contract/Cargo.toml",
+      "deploy_tx": "Fmhr5tGzizcrXVCv2MJWZ2XUNdNN1W4Nynmh6vhSMroG",
+      "github": {
+        "owner": "2BeBuilt",
+        "repo": "near-explorer-contract",
+        "sha": "42b7c4271836c1b6f9c1f35ac1959c2add9a94d4"
+      }
+    },
+    "nearustexample.near": {
+      "cid": "QmfMyTqjF4YDtF4B8EkfpKefFG1pw6vMhf9HQ1RkBqy921",
+      "lang": "rust",
+      "entry_point": "hello-near-rust/contract/Cargo.toml",
+      "deploy_tx": "9NESz65fhs37nMv28PonMXt7gCxeZf4tC1Uak3CAi84A",
+      "github": {
+        "owner": "near-examples",
+        "repo": "hello-near-rust",
+        "sha": "ee6bec64624908459557aafedbe6616a3af7f465"
+      }
+    },
+    "rustnftexample.near": {
+      "cid": "QmQtDf5SaDzD531PbfNLxwYfLxqiznVqCJEQ5A5T34c2RY",
+      "lang": "rust",
+      "entry_point": "nft-tutorial/nft-contract/Cargo.toml",
+      "deploy_tx": "6dM7bRcB8h5EXs7WXHaYmsyttCdENHUk9HJfV7zUwS4o",
+      "github": {
+        "owner": "near-examples",
+        "repo": "nft-tutorial",
+        "sha": "16270e3e0a7fa8252007d6357e28634b4510989a"
+      }
+    },
+    "rustftexample.near": {
+      "cid": "QmQPUXYzvgPFo6qoJWz3EvdPNAWd2ks5EdAEcpLZhjCPQT",
+      "lang": "rust",
+      "entry_point": "FT/ft/Cargo.toml",
+      "deploy_tx": "CF4XyNFYNnfi1yCoogWUcHevrVYXaCHpqpsB4D1sSFit",
+      "github": {
+        "owner": "near-examples",
+        "repo": "FT",
+        "sha": "590a8f4c8db0546ec880371492c3962a3e0253c7"
+      }
+    },
+    "shiftsa.near": {
+      "cid": "QmS8ammQ7ws5jdUnSRetFEA8bfb8ypc3BP1ffwra222TzQ",
+      "lang": "rust",
+      "entry_point": "cross-contract-calls/cross-contract-hello-rust/contract/Cargo.toml",
+      "deploy_tx": "8jpCScKApJ85cPC396w5dKDeuBH2oRkbdVwLqLXcuJcu",
+      "github": {
+        "owner": "near-examples",
+        "repo": "cross-contract-calls",
+        "sha": "d3d1316ee6951261072ef5564df73d7dfff54559"
+      }
+    },
+    "anoname.near": {
+      "cid": "QmbyAKZBMg1MrQrCjhR1yQUpKv3ShJxEyh9Yv7NK8R6F73",
+      "lang": "rust",
+      "entry_point": "NFT/Cargo.toml",
+      "deploy_tx": "12Ah7vM7R5yydvvkDapPmK7yZPJCSjCLvHNZ9TMVdKst",
+      "github": {
+        "owner": "near-examples",
+        "repo": "NFT",
+        "sha": "4f0eecf293f0a622aaec452f9709eef5a342a6e3"
+      }
     }
   }
 }

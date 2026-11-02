@@ -1,6 +1,6 @@
 import {
-  EMPTY_CODE_HASH,
   callFunction,
+  effectiveCode,
   isMissingAccount,
   isMissingMethod,
   viewAccount,
@@ -30,7 +30,10 @@ export interface SourceMetadata {
 export interface ScanRecord {
   accountId: string;
   status: Status;
+  /** The identity of the code the account runs. Absent when it runs none. */
   codeHash?: string;
+  /** True when the account runs a global contract (NEP-591) rather than local code. */
+  usesGlobalContract?: boolean;
   storageBytes?: number;
   /** NEAR balance in yoctoNEAR, as a string — it does not fit in a JS number. */
   balanceYocto?: string;
@@ -60,15 +63,20 @@ export async function scanAccount(accountId: string): Promise<ScanRecord> {
     return { accountId, status: "error", error: String(err), checkedAt };
   }
 
+  // All-ones code_hash means "no LOCAL code", which is not the same as "no contract":
+  // an account running a global contract reports it too. See effectiveCode.
+  const code = effectiveCode(account);
+
   const base = {
     accountId,
-    codeHash: account.code_hash,
+    ...(code.hash !== undefined ? { codeHash: code.hash } : {}),
+    ...(code.usesGlobalContract ? { usesGlobalContract: true } : {}),
     storageBytes: account.storage_usage,
     balanceYocto: account.amount,
     checkedAt,
   };
 
-  if (account.code_hash === EMPTY_CODE_HASH) {
+  if (code.hash === undefined) {
     return { ...base, status: "no_contract" };
   }
 

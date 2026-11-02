@@ -65,3 +65,59 @@ test("the empty code hash constant matches what NEAR reports for a bare account"
   assert.equal(EMPTY_CODE_HASH, "11111111111111111111111111111111");
   assert.equal(EMPTY_CODE_HASH.length, 32);
 });
+
+// ---- global contracts (NEP-591) ---------------------------------------------------------
+
+import { effectiveCode, type AccountView } from "../src/rpc.js";
+
+/**
+ * Real shape, copied from view_account on vault2.ft-lockup.near: an account running a
+ * global contract reports an all-ones code_hash, exactly like an empty account.
+ */
+const acct = (over: Partial<AccountView>): AccountView => ({
+  amount: "1",
+  code_hash: EMPTY_CODE_HASH,
+  storage_usage: 100,
+  ...over,
+});
+
+test("REGRESSION: a global-contract account is a contract, not an empty account", () => {
+  // The scanner read the all-ones hash as "no contract" and threw these accounts away;
+  // 15 of the 105 verified contracts were misfiled as "code removed" because of it.
+  const e = effectiveCode(acct({ global_contract_hash: "GXiWVUxgNZvu94oFirzgthiLjiGiZzUMm1meEhNZjtMz" }));
+  assert.equal(e.hash, "GXiWVUxgNZvu94oFirzgthiLjiGiZzUMm1meEhNZjtMz");
+  assert.equal(e.usesGlobalContract, true);
+});
+
+test("an account with neither local nor global code runs nothing", () => {
+  const e = effectiveCode(acct({}));
+  assert.equal(e.hash, undefined);
+  assert.equal(e.usesGlobalContract, false);
+});
+
+test("ordinary local code is reported as itself", () => {
+  const e = effectiveCode(acct({ code_hash: "DL2f5xmZ44cQRP6vBMt94rvseH5d5KKnAGis2WkTAsh1" }));
+  assert.equal(e.hash, "DL2f5xmZ44cQRP6vBMt94rvseH5d5KKnAGis2WkTAsh1");
+  assert.equal(e.usesGlobalContract, false);
+});
+
+test("a global contract named by hash compares equal to a local deploy of the same bytes", () => {
+  // That is what lets a verification record for local code still match after the
+  // account moves to the identical global contract.
+  const local = effectiveCode(acct({ code_hash: "SAMEBYTES" }));
+  const global = effectiveCode(acct({ global_contract_hash: "SAMEBYTES" }));
+  assert.equal(local.hash, global.hash);
+});
+
+test("a global contract named only by publisher gets an opaque identity that cannot match a record", () => {
+  const e = effectiveCode(acct({ global_contract_account_id: "publisher.near" }));
+  assert.equal(e.usesGlobalContract, true);
+  assert.equal(e.hash, "global-account:publisher.near");
+  assert.notEqual(e.hash, "publisher.near");
+});
+
+test("a local code_hash wins when both are somehow present", () => {
+  const e = effectiveCode(acct({ code_hash: "LOCAL", global_contract_hash: "GLOBAL" }));
+  assert.equal(e.hash, "LOCAL");
+  assert.equal(e.usesGlobalContract, false);
+});

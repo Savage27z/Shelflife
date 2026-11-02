@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "How many NEAR contracts actually match their published source?",
+  "description": "How much NEAR contract source can anyone actually check? Measures what contracts publish, and whether it could be rebuilt.",
   "license": "MIT",
   "scripts": {
     "scan": "tsx src/cli.ts scan",
@@ -15,7 +15,8 @@
     "build": "tsc -p tsconfig.build.json",
     "prepare": "npm run build",
     "report": "tsx src/cli.ts report",
-    "test": "node --import tsx --test \"test/*.test.ts\""
+    "test": "node --import tsx --test \"test/*.test.ts\"",
+    "links": "tsx src/cli.ts links"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

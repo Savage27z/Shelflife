@@ -81,6 +81,40 @@ export interface AccountView {
   amount: string;
   code_hash: string;
   storage_usage: number;
+  /**
+   * Global contracts (NEP-591). An account that uses one reports code_hash as all-ones —
+   * identical to an account with no contract at all — and names the code it runs here.
+   */
+  global_contract_hash?: string;
+  global_contract_account_id?: string;
+}
+
+export interface EffectiveCode {
+  /** The identity of the code this account runs, or undefined when it runs none. */
+  hash: string | undefined;
+  usesGlobalContract: boolean;
+}
+
+/**
+ * Which code is this account actually running?
+ *
+ * The all-ones code_hash means "no local code", NOT "no contract". Reading it as the
+ * latter threw away every account that uses a global contract, and made them look like
+ * accounts whose code had been removed.
+ *
+ * A global contract referenced by hash is identified by that hash, which equals the
+ * code_hash a local deployment of the same bytes would report — so it compares correctly
+ * against verification records. One referenced by publisher account has no hash visible
+ * here; it gets an opaque identity that can never match a record, rather than being
+ * guessed at.
+ */
+export function effectiveCode(account: AccountView): EffectiveCode {
+  if (account.code_hash !== EMPTY_CODE_HASH) return { hash: account.code_hash, usesGlobalContract: false };
+  if (account.global_contract_hash) return { hash: account.global_contract_hash, usesGlobalContract: true };
+  if (account.global_contract_account_id) {
+    return { hash: "global-account:" + account.global_contract_account_id, usesGlobalContract: true };
+  }
+  return { hash: undefined, usesGlobalContract: false };
 }
 
 export async function viewAccount(accountId: string): Promise<AccountView> {

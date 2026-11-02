@@ -1,0 +1,319 @@
+{
+  "generatedAt": "2026-11-02T08:38:37.752Z",
+  "scanGeneratedAt": "2026-10-31T12:57:58.613Z",
+  "note": "not_found is a 404, which GitHub also returns for private repositories.",
+  "summary": {
+    "inspected": 168,
+    "contractsWithLink": 34,
+    "placeholder": 1,
+    "otherHost": 0,
+    "githubContracts": 33,
+    "distinctRepos": 13,
+    "reposResolving": 9,
+    "reposNotFound": 4,
+    "reposUnknown": 0,
+    "contractsResolving": 28,
+    "contractsNotFound": 5,
+    "contractsPinned": 8,
+    "contractsRebuildable": 6,
+    "withLinkPct": 20.238095238095237,
+    "resolvingPct": 16.666666666666664,
+    "rebuildablePct": 3.571428571428571
+  },
+  "repos": {
+    "near-one/btc-bridge": "resolves",
+    "linear-protocol/linear": "resolves",
+    "ref-finance/rhea-token": "resolves",
+    "near/intents": "resolves",
+    "aurora-is-near/aurora-eth-connector": "resolves",
+    "publicai01/publicai-token": "resolves",
+    "peersyst/near-mobile": "not_found",
+    "near-one/omni-bridge": "resolves",
+    "sweat-foundation/sweat-token": "resolves",
+    "cfi-token/cfi-fungible-token": "not_found",
+    "brainstems/itlx_nep141_token": "not_found",
+    "near/near-sdk-rs": "resolves",
+    "fewandfarnft/ff-near-contracts-nft": "not_found"
+  },
+  "rows": [
+    {
+      "accountId": "zec.omft.near",
+      "link": "https://github.com/Near-One/btc-bridge/tree/e5666eaa16055cf484ab9a539ade0f454845f24c",
+      "kind": "github",
+      "repo": "Near-One/btc-bridge",
+      "ref": "e5666eaa16055cf484ab9a539ade0f454845f24c",
+      "pinned": true,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "linear-protocol.near",
+      "link": "https://github.com/linear-protocol/LiNEAR",
+      "kind": "github",
+      "repo": "linear-protocol/LiNEAR",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "token.rhealab.near",
+      "link": "https://github.com/ref-finance/rhea-token/tree/78f048e5583a729ed04bc98f8d7ca579d4838bc3",
+      "kind": "github",
+      "repo": "ref-finance/rhea-token",
+      "ref": "78f048e5583a729ed04bc98f8d7ca579d4838bc3",
+      "pinned": true,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near",
+      "link": "https://github.com/near/intents",
+      "kind": "github",
+      "repo": "near/intents",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "eth-0xdac17f958d2ee523a2206206994597c13d831ec7.omft.near",
+      "link": "https://github.com/near/intents",
+      "kind": "github",
+      "repo": "near/intents",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "btc.omft.near",
+      "link": "https://github.com/near/intents",
+      "kind": "github",
+      "repo": "near/intents",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "eth.bridge.near",
+      "link": "https://github.com/aurora-is-near/aurora-eth-connector/tree/ef63f08b0ba8f4bdba2d0d92fde615f0aee2cd36",
+      "kind": "github",
+      "repo": "aurora-is-near/aurora-eth-connector",
+      "ref": "ef63f08b0ba8f4bdba2d0d92fde615f0aee2cd36",
+      "pinned": true,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "eth.omft.near",
+      "link": "https://github.com/near/intents",
+      "kind": "github",
+      "repo": "near/intents",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "token.publicailab.near",
+      "link": "https://github.com/PublicAI01/publicai-token/tree/1963f595fbd795ef8369c7abdaa05c6b57f9ec72",
+      "kind": "github",
+      "repo": "PublicAI01/publicai-token",
+      "ref": "1963f595fbd795ef8369c7abdaa05c6b57f9ec72",
+      "pinned": true,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "npro.nearmobile.near",
+      "link": "https://github.com/Peersyst/near-mobile/tree/0cba9aa5044fb44735911312098b0b1563b5534a",
+      "kind": "github",
+      "repo": "Peersyst/near-mobile",
+      "ref": "0cba9aa5044fb44735911312098b0b1563b5534a",
+      "pinned": true,
+      "repoStatus": "not_found"
+    },
+    {
+      "accountId": "sol.omft.near",
+      "link": "https://github.com/Near-One/omni-bridge/tree/9f0bf056814265c0b0f85f5820cd4b4cff7e90a1",
+      "kind": "github",
+      "repo": "Near-One/omni-bridge",
+      "ref": "9f0bf056814265c0b0f85f5820cd4b4cff7e90a1",
+      "pinned": true,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "token.sweat",
+      "link": "https://github.com/Sweat-Foundation/sweat-token/tree/75dc5b48dcc8b3f5303ab9f1d3dbf046901f6314",
+      "kind": "github",
+      "repo": "Sweat-Foundation/sweat-token",
+      "ref": "75dc5b48dcc8b3f5303ab9f1d3dbf046901f6314",
+      "pinned": true,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "cfi.consumer-fi.near",
+      "link": "https://github.com/cfi-token/cfi-fungible-token",
+      "kind": "github",
+      "repo": "cfi-token/cfi-fungible-token",
+      "pinned": false,
+      "repoStatus": "not_found"
+    },
+    {
+      "accountId": "itlx.intellex_xyz.near",
+      "link": "https://github.com/brainstems/itlx_nep141_token/tree/624a3f7a84b10762cc600a1a834e5a72d8380986",
+      "kind": "github",
+      "repo": "brainstems/itlx_nep141_token",
+      "ref": "624a3f7a84b10762cc600a1a834e5a72d8380986",
+      "pinned": true,
+      "repoStatus": "not_found"
+    },
+    {
+      "accountId": "dash.omft.near",
+      "link": "https://github.com/near/intents",
+      "kind": "github",
+      "repo": "near/intents",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "near-bonus.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "casino-event.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "free-reward.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "reward-free.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "claimable-rewards.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "event-special.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "airdrop-reward.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "event-near.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "casino-bonus.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "reward-drop.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "free-rewards.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "sweet-boxes.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "stake-boost.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "event-drops.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "airdrop-ticket.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "nft-reward.near",
+      "link": "https://github.com/near/near-sdk-rs",
+      "kind": "github",
+      "repo": "near/near-sdk-rs",
+      "pinned": false,
+      "repoStatus": "resolves"
+    },
+    {
+      "accountId": "initiate.nearlegion.near",
+      "link": "https://github.com/<xxx>/<xxx>",
+      "kind": "placeholder",
+      "pinned": false,
+      "repoStatus": "unknown"
+    },
+    {
+      "accountId": "sweat.collections.fewandfar.near",
+      "link": "https://github.com/FewAndFarNFT/ff-near-contracts-nft",
+      "kind": "github",
+      "repo": "FewAndFarNFT/ff-near-contracts-nft",
+      "pinned": false,
+      "repoStatus": "not_found"
+    },
+    {
+      "accountId": "fnf-club.collections.fewandfar.near",
+      "link": "https://github.com/FewAndFarNFT/ff-near-contracts-nft",
+      "kind": "github",
+      "repo": "FewAndFarNFT/ff-near-contracts-nft",
+      "pinned": false,
+      "repoStatus": "not_found"
+    }
+  ]
+}
