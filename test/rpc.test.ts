@@ -83,7 +83,7 @@ const acct = (over: Partial<AccountView>): AccountView => ({
 
 test("REGRESSION: a global-contract account is a contract, not an empty account", () => {
   // The scanner read the all-ones hash as "no contract" and threw these accounts away;
-  // 15 of the 105 verified contracts were misfiled as "code removed" because of it.
+  // 12 of the 105 registry accounts were misfiled as "code removed" because of it.
   const e = effectiveCode(acct({ global_contract_hash: "GXiWVUxgNZvu94oFirzgthiLjiGiZzUMm1meEhNZjtMz" }));
   assert.equal(e.hash, "GXiWVUxgNZvu94oFirzgthiLjiGiZzUMm1meEhNZjtMz");
   assert.equal(e.usesGlobalContract, true);

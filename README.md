@@ -1,110 +1,119 @@
 # Shelflife
 
-**How many NEAR contracts actually match their published source?**
+**How much NEAR contract source can anyone actually check?**
 
-A blockchain runs machine code. Projects publish readable source on GitHub and say "this is what
-it does." Almost nobody checks whether the two match — and you can check, by rebuilding the
-published source and comparing it to the bytes running on chain.
+A blockchain runs machine code. Projects publish a link to their source and say "this is what it
+does." That only helps if the link goes somewhere, is tied to the version that is actually
+deployed, and could be rebuilt to prove the two match. NEAR has the tooling for all of it —
+[NEP-330](https://github.com/near/NEPs/blob/master/neps/nep-0330.md) source metadata,
+`cargo near build reproducible-wasm`, SourceScan, and Verify-and-Publish on NearBlocks — and I could
+not find anyone who had measured how much of it is used.
 
-NEAR already has the tooling: [NEP-330](https://github.com/near/NEPs/blob/master/neps/nep-0330.md)
-source metadata, `cargo near build reproducible-wasm`, Docker builds, SourceScan, and
-Verify-and-Publish on NearBlocks. **What nobody has measured is whether any of it is used.**
-
-This repo measures it. Every number below is computed by the commands in this README from free,
-public RPC reads — no API keys, no wallet, no funds.
+This repo measures it, and ships a checker you can point at any contract. Every number below is
+computed by the commands in this README from free public reads: no API keys, no wallet, no funds.
 
 ## Findings
 
-### 1. Across all of NEAR mainnet, 105 contracts have ever been verified
+### 1. Only 6 of 168 token contracts publish source that could be rebuilt
 
-Read directly from SourceScan's on-chain registry (`v2-verifier.sourcescan.near`), which is what
-backs the "Verify and Publish" button on NearBlocks. All 105 are Rust. This figure is **complete,
-not sampled**.
+| Stage | Contracts | Share of 168 |
+|---|---|---|
+| Inspected | 168 | — |
+| Expose NEP-330 source metadata | 53 | 31.5% |
+| …carrying a source link | 34 | 20.2% |
+| …whose GitHub repository resolves | 28 | 16.7% |
+| **…and the link is pinned to a commit — could be rebuilt** | **6** | **3.6%** |
 
-### 2. Two in five of those are already out of date
+Each stage is a different question, and each one loses contracts:
 
-A verification record pins a specific code hash. If the account redeploys, the record no longer
-describes the code that is running — but nothing re-checks it, and nothing marks it stale. Explorers
-go on showing the contract as verified.
+- **Metadata is not a link.** 19 of the 53 contracts exposing metadata publish a version and no
+  link — a pointer to nowhere.
+- **A link is not source.** The 34 links point at only 13 GitHub repositories plus one literal
+  template placeholder, `https://github.com/<xxx>/<xxx>` (`initiate.nearlegion.near`). **4 of the
+  13 repositories return 404** (5 contracts) — deleted, or private.
+- **A repository is not a version.** Of the 33 GitHub links, only 8 name a commit. The rest point at
+  a repository front page, which cannot be tied to what is deployed.
 
-| Of the 105 verified contracts | |
-|---|---|
-| Record still matches deployed code | **54** |
-| **Redeployed since verification** | **42 (40%)** |
-| Account unreachable | 9 |
+The six that clear the bar are `token.sweat`, `eth.bridge.near`, `zec.omft.near`, `sol.omft.near`,
+`token.rhealab.near` and `token.publicailab.near`. Try `node dist/bin.js token.sweat`.
 
-**So on the entire NEAR mainnet, 54 contracts have a verification record that matches the code
-running today.**
+**Accounts are not programs.** The 168 accounts run only **101 distinct pieces of bytecode**,
+because factories deploy clones. The largest cluster is 34 bridged-token contracts sharing identical
+code, none with metadata, so counting accounts lets one factory swing the aggregate. Of the **87
+contracts with unique bytecode, 41.4%** expose metadata.
 
-NEAR's own `devhub.near` is one of the 42.
+| Kind | Inspected | Metadata | With a link |
+|---|---|---|---|
+| Fungible tokens | 84 | 26.2% | 17.9% |
+| NFT contracts | 84 | 36.9% | 22.6% |
 
-### 3. Only one contract in five publishes a source link you can actually follow
+The NFT figure is flattered by clone families that happen to carry metadata — several families of 3
+to 5 airdrop and reward contracts, each deployed from one toolchain that embeds it.
 
-180 contracts taken from NearBlocks in indexer order. Every NEP-141 token and NEP-171 NFT contract
-is indexed, which makes this the one contract population on NEAR that can be enumerated rather than
-hand-picked.
+### 2. SourceScan holds 112 verifications; 64 still match what is deployed
 
-| | |
-|---|---|
-| Contracts inspected | **168** |
-| Expose NEP-330 metadata | 53 (31.5%) |
-| **…carrying a usable repo link** | **34 (20.2%)** |
-| Publish metadata pointing nowhere | **19** |
-| Present in the SourceScan registry | 6 |
-| No published source at all | 115 |
+SourceScan keeps two registries on mainnet: `v2-verifier.sourcescan.near` (105 records) and an older
+`sourcescan.near` (7 records, none in the current one, and no code hash recorded, so they cannot be
+checked against what is deployed). Both are read in full, so these counts are complete for those two
+registries.
 
-**Metadata presence overstates verifiability.** 19 of the 53 contracts exposing metadata publish no
-link in it — they declare a version and point nowhere, which is unverifiable in practice. The
-honest coverage figure is the one counting a usable link: **20.2%**.
+| The 105 current-registry records | | |
+|---|---|---|
+| Still match the deployed code | **64** | 61.0% |
+| Redeployed since verification | **29** | 27.6% |
+| Account deleted | 9 | |
+| Code removed from the account | 3 | |
 
-**Accounts are not programs.** Those 168 accounts run only **101 distinct pieces of bytecode** —
-roughly a third are factory clones. The largest cluster is **34 bridged-token contracts sharing
-identical code, none with metadata**, so counting accounts lets one factory's choice swing the
-aggregate. Counting distinct programs instead: of the **87 unique-bytecode contracts, 41.4% expose
-metadata**.
+**A stale record is mostly not a trust gap.** Of the 29 redeployed contracts, **27 now publish a
+source link of their own and 25 of those are pinned to a commit.** Two publish nothing
+(`hello.sleet.near` and one 64-character implicit account). So the registry has largely been
+*superseded* by NEP-330 metadata, rather than source going dark.
 
-Contracts with no published source include `wrap.near`, `v2.ref-finance.near`,
-`usdt.tether-token.near`, `aurora`, `social.near` and `meta-pool.near` — among the highest-value
-contracts on the chain.
+What a stale record does mean is narrower: SourceScan holds no rebuild of the **current** code, and
+whether those links reproduce the deployed bytes has not been checked here.
 
-#### A prediction this got wrong
+All 105 current records are Rust. 17 of the 112 account names look like tests or staging
+deployments (`buildtest-2.agruzdev.near`, `rug-testing.near`, `multi-feed-qa-1.atlas-oracle.near`) —
+a name heuristic, not a classification. The registry is not 112 real projects.
 
-Before running it, I expected a broad sweep to score *worse* than the hand-picked set of major
-protocols (19.0%), reasoning that big protocols are likelier to have bothered. The opposite
-happened: 31.5% against 19.0%. Blue-chip contracts largely predate the tooling, while newer token
-contracts are often deployed with toolchains that embed metadata by default. Recorded because a
-measurement that only ever confirms its hypothesis is not worth much.
+### 3. NEAR held behind unpublished source is concentrated in one account
 
-### 4. Exposure is real, but concentrated — read both numbers together
+Of the 38.6M NEAR held by the inspected contracts, **99.8%** sits in contracts with neither metadata
+nor a registry record. That is true and, quoted alone, misleading: **`wrap.near` is 90.1% of it**,
+because wrapped NEAR holds the backing for every wNEAR in existence, and `meta-pool.near` is another
+9.7%. `npm run weigh` therefore always prints the concentration table beside the headline.
 
-Of the NEAR held by inspected contracts, **99.8% sits behind contracts with no published source**.
-That is true and, quoted alone, misleading: **`wrap.near` alone is 90.1% of it**, because wrapped
-NEAR holds the backing for every wNEAR in existence.
-
-`npm run weigh` therefore always prints the concentration table beside the headline, so the
-disclosure travels with the number instead of depending on whoever repeats it.
+This counts NEAR balance only. A token contract's value to its users is in the tokens it issues,
+which this does not capture, so treat it as a floor, not a measure of risk.
 
 ## What this does and does not claim
 
-**This measures verification coverage, not honesty.** A contract that publishes no source is
-unverifiable, which is not evidence that anyone is lying. No project here is accused of anything,
-and the fix is two commands — see below.
+**Verification coverage, not honesty.** A contract that publishes no source is unverifiable. That is
+not evidence anyone is lying, and no project here is accused of anything. The fix is in
+[Fixing it](#fixing-it-if-this-is-your-contract).
 
-**Both paths are checked.** An earlier version of this README reported only NEP-330 metadata and
-flagged that SourceScan records might change the picture. They were then checked, and they do not
-rescue the figure: 6 of the 168 inspected contracts appear in the registry.
+**Nothing has been rebuilt.** Every figure measures what is *published*, not whether it compiles to
+the deployed bytes. "Rebuildable" means a rebuild would be possible, not that one was done. A
+pinned, resolving link is still only a claim.
 
-**Not a census.** No RPC method lists every contract on NEAR, so findings 3 and 4 are a sample —
-token contracts, taken from the indexer in its own order, with the rule recorded in
-`data/contracts.json`. It is not weighted toward anything, but it is not the whole chain either,
-and token contracts may not behave like the rest of it.
+**The sample is token contracts, and it is not random.** It is the first 90 fungible-token and first
+90 NFT contracts in the order the NearBlocks API returns them (3,862 and 2,258 are indexed). The
+fungible list leads with the best-known tokens; the NFT list is dominated by airdrop and reward
+contracts. No RPC method lists every contract, so a census is not available. Token contracts may
+not behave like the rest of the chain. The sample contains no accounts that use global contracts.
 
-**Findings 1 and 2 are complete**, not sampled: they enumerate the entire SourceScan registry.
+**The tooling is Rust-only.** NEP-330 metadata comes from Rust tooling and every registry record is
+Rust, so a contract written in another language cannot carry it. I did not measure the share of
+non-Rust contracts in the sample, so part of the gap in finding 1 may be structural.
 
-**Nothing here has been rebuilt yet.** Every figure measures whether a source link is *published*,
-not whether that source actually compiles to the deployed bytes. A contract can publish a link to
-code that does not match. That check needs Docker and is the main open item on the roadmap — until
-it lands, read "verifiable" as "a source link exists to check", never as "checked".
+**A 404 is ambiguous.** GitHub returns the same for a deleted repository and a private one.
+
+**Other explorers may hold their own records.** I could not check what NearBlocks displays for a
+verified contract: its pages sit behind a bot check and its public API exposes no verification
+field. Only the two SourceScan registries are read.
+
+**It is a snapshot.** The chain moves, so re-running the scan gives slightly different numbers. The
+committed datasets in `data/` are the reproducible artifact.
 
 ## Quickstart
 
@@ -114,64 +123,78 @@ Node 20+. `npm install` also builds, so there is no separate build step.
 npm install
 ```
 
-### Fastest way to see it work — about 3 seconds
+Check any contract. Each of these is a different outcome:
 
 ```bash
-node dist/bin.js devhub.near
+node dist/bin.js token.sweat              # source is published, pinned and matches
+node dist/bin.js initiate.nearlegion.near # the "source" is a template placeholder
+node dist/bin.js wrap.near                # nothing published
+node dist/bin.js devhub.near              # a live link, not pinned, plus a stale record
 ```
 
 ```
-devhub.near
-  code hash   EauRt8UydofJitWuttov1zPpcxRKhBLCttYUzw62Diaq
-  source      https://github.com/NEAR-DevHub/neardevhub-contract
-  version     0.2.0
-  SourceScan  verified once, but REDEPLOYED since
-  verified    AUHmE71SPjnq8S3EW7m8ompfVBJxwCt4YfVvFLHtvVnr (no longer deployed)
+token.sweat
+  code hash  9EUtV11wgCZ4N16xa24ETnn8E78GjeSit1r7gMyQZ6Zi
+  source     https://github.com/Sweat-Foundation/sweat-token/tree/75dc5b48dcc8b3f5303ab9f1d3dbf046901f6314
+             pinned to 75dc5b4
+  version    1.4.0
+  link       repository resolves
+  SourceScan verified, matches the deployed code
 
-  This contract was verified, then redeployed. The published source
-  describes code that is no longer running.
+  Source is published, and a SourceScan record matches the deployed code.
+  · The link is pinned to a commit, so a rebuild is possible.
 ```
 
-That is finding 2 in a single screen, on NEAR's own contract. It is the case most likely to be
-misread, because explorers still show it as verified.
+```
+initiate.nearlegion.near
+  code hash  HgEFLxaHk47yWaZDYA3sWUZ7iZdEEVo978zQhFFWDnf
+  source     https://github.com/<xxx>/<xxx>
+  version    0.1.1
+  SourceScan not in the registry
 
-Three more, each a different outcome:
+  The published source link is a template placeholder.
+  · The published link is a template placeholder, not a repository.
 
-```bash
-node dist/bin.js linear-protocol.near   # publishes a source link
-node dist/bin.js wrap.near              # publishes nothing
-node dist/bin.js game.hot.tg            # metadata that points nowhere
+  If this is yours, two commands fix it:
+    cargo near build reproducible-wasm
+    cargo near deploy <account>
 ```
 
-### Every command
-
-| Command | What it does | Runtime |
-|---|---|---|
-| `npm test` | the test suite, no network | ~2s |
-| `node dist/bin.js <account>` | check one contract | ~3s |
-| `npm run verified` | audit the whole SourceScan registry → findings 1 and 2 | ~2 min |
-| `npm run weigh` | exposure and concentration from the last scan → finding 4 | instant |
-| `npm run report` | regenerate `report/index.html` from the datasets | instant |
-| `npm run enumerate -- <n>` | rebuild the target set from the indexer | ~1 min |
-| `npm run scan` | scan the whole target set → finding 3 | **~15 min** |
-
-`npm run scan` is slow because it makes one or two RPC calls per contract against a free public
-endpoint, and backs off when rate limited rather than hammering it. **The datasets it produces are
-committed**, so `weigh` and `report` reproduce findings 3 and 4 immediately without re-scanning.
+(Output as of writing; it reflects the live chain.)
 
 ### Exit codes, so it can gate a pipeline
 
 | Code | Meaning |
 |---|---|
-| `0` | a source link is published |
-| `1` | no source published |
+| `0` | readable source exists: a link that resolves (or could not be checked), or a SourceScan record matching the deployed code |
+| `1` | no readable source: nothing published, a dead or placeholder link, or only a SourceScan record for code that has since been replaced |
 | `2` | not a contract |
 | `3` | lookup failed |
 
 ```bash
 # fail your own build if a dependency stops publishing source
-node dist/bin.js some-dependency.near || echo "dependency publishes no source"
+node dist/bin.js some-dependency.near || echo "dependency publishes no readable source"
 ```
+
+A link that could not be checked (rate limiting, a non-GitHub host) gets the benefit of the doubt: an
+unreadable answer must not fail someone's build.
+
+### Every command
+
+| Command | What it does | Runtime (approx.) |
+|---|---|---|
+| `npm test` | the test suite, no network | 3 s |
+| `node dist/bin.js <account>` | check one contract | 3 s |
+| `npm run weigh` | NEAR custody and its concentration → finding 3 | instant |
+| `npm run report` | regenerate `report/index.html` from `data/` | instant |
+| `npm run enumerate -- <n>` | rebuild the target set from the indexer | 1 min |
+| `npm run links` | do the published links resolve, and are they pinned? → finding 1 | 1 min |
+| `npm run verified` | read both SourceScan registries → finding 2 | 10–15 min |
+| `npm run scan` | scan the whole target set → finding 1 | 10–15 min |
+
+The slow ones make one or two RPC calls per contract against a free public endpoint, and back off
+when rate limited rather than hammering it. **The datasets they produce are committed**, so `weigh`
+and `report` reproduce findings 2 and 3 immediately.
 
 ## Tests
 
@@ -179,70 +202,86 @@ node dist/bin.js some-dependency.near || echo "dependency publishes no source"
 npm test
 ```
 
-19 tests, no network, no new dependencies — Node's built-in runner. They cover the arithmetic that
-produces every published figure: coverage denominators, link-versus-metadata counting, bytecode
-deduplication, BigInt balance sums, divide-by-zero guards, and the error classification that
-decides whether a response is a *finding* or a *failure*.
+85 tests, no network, no dependencies beyond Node's built-in runner. They cover the **pure logic**:
+coverage denominators, the link parser (placeholder, pinned, unpinned, tag-versus-commit), repository
+status handling, the verdict and exit code for every combination, registry page parsing and
+classification, global-contract handling, BigInt balance sums, and report rendering — including
+HTML escaping and that it never prints `undefined` or `NaN`.
 
-The fixtures are real response shapes copied from live NEAR calls, including the one that caused
-the 100%-coverage bug below.
+**Not covered:** the network code (RPC retry and endpoint rotation, indexer paging, the GitHub
+requests) and the CLI orchestration in `cli.ts` and `bin.ts`. Those are exercised by running them,
+not by tests. Fixtures for the real response shapes are copied from live calls.
 
-**The suite was mutation-tested**, because tests that pass prove nothing on their own. Three
-deliberate breaks were introduced and all three were caught:
+**The suite was mutation-tested**, because tests that pass prove nothing on their own. Each break
+below was introduced deliberately and caught:
 
-| Mutation | Result |
+| Deliberate break | Failures |
 |---|---|
-| `isMissingMethod` always returns false — the original 100%-coverage bug | 1 failure |
-| Errors folded into the coverage denominator | 2 failures |
-| Concentration sorted ascending, hiding the dominant account | 1 failure |
+| any registry record counts as readable source (the original exit-code bug) | 3 |
+| any ref counts as "pinned" | 2 |
+| a 429 from GitHub reported as "repo not found" | 2 |
+| "rebuildable" ignores whether the repo resolves | 2 |
+| deleted accounts folded into "could not tell" | 1 |
+| registry page parser stops validating its shape | 1 |
+| concentration disclosure removed from the report | 1 |
+| report claims the sample is random | 1 |
+| placeholder detection removed | 4 |
+| global-contract hash ignored | 2 |
 
-That last one matters as much as the arithmetic: if `wrap.near` could quietly drop off the bottom
-of the concentration table, the headline figure would become misleading without anyone noticing.
+One further mutation survived and is not a gap: it removed a guard in `check.ts` that
+`parseSourceLink` already makes redundant, so it changes nothing observable. I confirmed that by
+breaking the real protection instead (the placeholder row above).
 
 ## How it works
 
-1. `view_account` — does the account exist, and is code deployed? An account with no contract
-   reports code hash `11111111111111111111111111111111`.
+1. `view_account` — what code does the account run? An all-ones `code_hash` means **no local code**,
+   which is *not* the same as no contract; see the third trap below.
 2. `call_function` on `contract_source_metadata` — the NEP-330 method. A contract without it fails
    with `MethodResolveError(MethodNotFound)`.
-3. `get_contracts` / `get_contract` on `v2-verifier.sourcescan.near` — the registry path.
-4. Compare each registry record's `code_hash` against the account's current code hash to find
-   records that have gone stale.
+3. `get_contracts` / `get_contract` on both SourceScan registries.
+4. Parse the link (`links.ts`), HEAD the GitHub repository, and check whether it names a commit.
+5. One shared function (`verdict.ts`) turns all of that into a verdict and an exit code. The CLI and
+   the checker both use it; they used to be two implementations that could disagree.
 
-Accounts we fail to reach are counted as errors, never folded into a finding. The coverage
-denominator is contracts actually inspected.
+Accounts we fail to reach are counted as errors and never folded into a finding.
 
-### Two traps, documented because both produced wrong numbers here first
+### Three traps that produced wrong numbers here first
 
-**A failed NEAR view call is not a JSON-RPC error.** The request returns HTTP 200 and the failure
-is a string inside `result.error`. Treating it as an error made every contract lacking the method
-look like an infrastructure failure — and the first run of this tool proudly reported **100%
-coverage** with 34 "errors."
+**A failed NEAR view call is not a JSON-RPC error.** The request returns HTTP 200 and the failure is
+a string inside `result.error`. Treating it as an error made every contract lacking the method look
+like an infrastructure failure, and the first run of this tool reported **100% coverage** with 34
+"errors".
 
-**`get_contracts` returns `[entries, pageCount]`, not `[entries, total]`.** The second element is
-the number of pages at the requested limit: 53 at limit 2, 5 at limit 25, 1 at limit 500 — all
-describing the same 105 records. Reading it as a total gives "53 verified contracts," which is
-wrong by half.
+**`get_contracts` returns `[entries, pageCount]`, not `[entries, total]`.** The second element is the
+number of pages at the requested limit: 105 at limit 1, 53 at limit 2, 5 at limit 25, 1 at limit 500,
+all describing the same 105 records. Reading it as a total gave "53 verified contracts". The parser
+is now strict, so a changed shape fails loudly instead of producing a plausible wrong number.
 
-## Repo map
+**An all-ones `code_hash` is not an empty account.** NEAR's global contracts ([NEP-591]) report it
+too, with a `global_contract_hash` instead. The scanner read it as "no contract" and threw those
+accounts away. **12 of the 105 registry accounts run a global contract.** Misreading them made 10
+records that do match look redeployed, which is why this repo first reported 54 matches instead of 64.
 
-```
-src/rpc.ts         NEAR JSON-RPC client; retries, endpoint rotation, error classification
-src/scan.ts        per-account inspection and the summary statistics
-src/verified.ts    SourceScan registry: enumeration, lookup, staleness
-src/enumerate.ts   indexer-derived target set, rate-limit tolerant
-src/weight.ts      exposure by balance and state, with concentration disclosure
-src/report.ts      static HTML report generated from the datasets
-src/bin.ts         the shelflife checker
-src/cli.ts         command dispatch
-test/              unit tests, no network
-data/              committed datasets — every finding reproduces from these
-report/index.html  generated report
-```
+[NEP-591]: https://github.com/near/NEPs/blob/master/neps/nep-0591.md
+
+## Corrections
+
+A review of an earlier version of this repo found these claims wrong, and they were fixed:
+
+- *"54 contracts on the whole chain match their verification"* — it was 64. Global-contract accounts
+  were being misfiled (trap three).
+- *"42 verifications are stale, so the published source describes code no longer running"* — 29 are
+  redeployed, and 27 of those publish their own link. The framing was the real error: a stale
+  registry record is not a trust gap.
+- *"105 is complete"* — 112 across both registries.
+- *"20.2% publish a usable link"* — a link that resolves **and** is pinned is 3.6%.
+- *"The sample is not weighted toward anything"* — it follows the indexer's order, which is.
+- *The checker exited 0 for a contract with no readable source* whenever any registry record existed.
+- *"Explorers still show it as verified"* — never checked, and removed.
 
 ## Fixing it, if this is your contract
 
-Build reproducibly and the metadata is embedded automatically:
+Build reproducibly so the metadata is embedded, and **make sure the link names a commit**:
 
 ```bash
 cargo near build reproducible-wasm
@@ -251,17 +290,36 @@ cargo near deploy <account>
 
 Then verify and publish on NearBlocks, under the contract's Contract tab.
 
+## Repo map
+
+```
+src/rpc.ts         NEAR JSON-RPC client; retries, endpoint rotation, global-contract handling
+src/scan.ts        per-account inspection and the summary statistics
+src/links.ts       link parsing, repository resolution, rebuildability
+src/verified.ts    both SourceScan registries: parsing, lookup, classification
+src/verdict.ts     the one place that decides a verdict and an exit code
+src/check.ts       check one contract; shared by the CLI and the checker
+src/enumerate.ts   indexer-derived target set, rate-limit tolerant
+src/weight.ts      NEAR custody by balance and state, with concentration disclosure
+src/report.ts      static HTML report, a pure function of the datasets
+src/bin.ts         the shelflife checker
+src/cli.ts         command dispatch
+test/              unit tests, no network
+data/              committed datasets — scan, links, registries, target set
+report/index.html  generated report
+```
+
 ## Roadmap
 
 - [x] NEP-330 metadata scan
-- [x] SourceScan registry lookup, with staleness check
-- [x] Indexer-derived target set
-- [x] Weight findings by value and state, with concentration disclosure
-- [x] `shelflife <account.near>` — single-contract checker with CI exit codes
-- [x] Static report page (`npm run report` → `report/index.html`)
-- [ ] Reproducible rebuild via Docker + `cargo near`, hash comparison — does the published source
-      actually produce the deployed bytes?
-- [ ] Re-verification watch: alert when a verified contract redeploys
+- [x] Both SourceScan registries, with staleness and what each stale contract publishes today
+- [x] Link resolution and pinned-to-commit check
+- [x] `shelflife` checker with CI exit codes
+- [x] Static report
+- [ ] Reproducible rebuild via Docker and `cargo near`: does a pinned link actually produce the
+      deployed bytes? This is what would turn "rebuildable" into "rebuilt".
+- [ ] Measure the share of non-Rust contracts in the sample
+- [ ] Check what NearBlocks displays for stale-verified contracts
 
 ## Dependencies and prior code
 
